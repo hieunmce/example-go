@@ -12,6 +12,7 @@ var (
 	ErrEmailIsRequired = errEmailIsRequired{}
 	ErrEmailIsInvalid  = errEmailIsInvalid{}
 	ErrRecordNotFound  = errRecordNotFound{}
+	ErrNameTooShort    = errNameTooShort{}
 )
 
 type errNotFound struct{}
@@ -66,5 +67,15 @@ func (errNameIsRequired) Error() string {
 }
 
 func (errNameIsRequired) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errNameTooShort struct{}
+
+func (errNameTooShort) Error() string {
+	return "length of name must > 5 characters"
+}
+
+func (errNameTooShort) StatusCode() int {
 	return http.StatusBadRequest
 }
