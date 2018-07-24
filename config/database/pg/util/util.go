@@ -11,7 +11,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq" // postgresql driver
 
-	"github.com/hieunmce/example-go/domain"
+	"github.com/ntp13495/example-go/domain"
 )
 
 const (
