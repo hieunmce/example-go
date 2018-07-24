@@ -42,7 +42,7 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] validate email of user is a valid email.
   
 * [ ] API must be able to CRUD category of books:
-  * [ ] Each category should have the following fields:
+  * [x] Each category should have the following fields:
     * id (uuid)
     * name (string)
   * [ ] API must be able to get detail of a category.
