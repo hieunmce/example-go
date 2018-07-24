@@ -13,6 +13,7 @@ var (
 	ErrEmailIsInvalid  = errEmailIsInvalid{}
 	ErrRecordNotFound  = errRecordNotFound{}
 	ErrNameTooShort    = errNameTooShort{}
+	ErrRecordExisted   = errRecordExisted{}
 )
 
 type errNotFound struct{}
@@ -73,9 +74,19 @@ func (errNameIsRequired) StatusCode() int {
 type errNameTooShort struct{}
 
 func (errNameTooShort) Error() string {
-	return "length of name must > 5 characters"
+	return "length of name must be > 5 characters"
 }
 
 func (errNameTooShort) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errRecordExisted struct{}
+
+func (errRecordExisted) Error() string {
+	return "this name is duplicated"
+}
+
+func (errRecordExisted) StatusCode() int {
 	return http.StatusBadRequest
 }
