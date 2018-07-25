@@ -9,8 +9,8 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	testutil "github.com/hieunmce/example-go/config/database/pg/util"
-	"github.com/hieunmce/example-go/domain"
+	testutil "github.com/trantrongkim98/example-go/config/database/pg/util"
+	"github.com/trantrongkim98/example-go/domain"
 )
 
 func TestPGService_Create(t *testing.T) {
