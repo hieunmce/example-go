@@ -88,3 +88,4 @@ func (errExistName) Error() string {
 func (errExistName) StatusCode() int {
 	return http.StatusBadRequest
 }
+
