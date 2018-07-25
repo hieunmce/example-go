@@ -20,14 +20,6 @@ func ValidationMiddleware() func(Service) Service {
 }
 
 func (mw validationMiddleware) Create(ctx context.Context, loan *domain.Loan) (err error) {
-	if loan.Name == "" {
-		return ErrNameIsRequired
-	}
-
-	if len([]rune(loan.Name)) <= 5 {
-		return ErrNameTooShort
-	}
-
 	return mw.Service.Create(ctx, loan)
 }
 func (mw validationMiddleware) FindAll(ctx context.Context) ([]domain.Loan, error) {
@@ -38,14 +30,6 @@ func (mw validationMiddleware) Find(ctx context.Context, loan *domain.Loan) (*do
 }
 
 func (mw validationMiddleware) Update(ctx context.Context, loan *domain.Loan) (*domain.Loan, error) {
-	if loan.Name == "" {
-		return nil, ErrNameIsRequired
-	}
-
-	if len([]rune(loan.Name)) <= 5 {
-		return nil, ErrNameTooShort
-	}
-
 	return mw.Service.Update(ctx, loan)
 }
 func (mw validationMiddleware) Delete(ctx context.Context, loan *domain.Loan) error {

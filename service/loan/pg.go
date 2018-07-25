@@ -25,7 +25,7 @@ func (s *pgService) Create(_ context.Context, p *domain.Loan) error {
 	res := []domain.Loan{}
 	s.db.Find(&res)
 	for _, element := range res {
-		if p.Name == element.Name {
+		if p.UserID == element.UserID {
 			return ErrRecordExisted
 		}
 	}
@@ -47,12 +47,12 @@ func (s *pgService) Update(_ context.Context, p *domain.Loan) (*domain.Loan, err
 	}
 
 	for _, element := range res {
-		if p.Name == element.Name {
+		if p.UserID == element.UserID {
 			return nil, ErrRecordExisted
 		}
 	}
 
-	old.Name = p.Name
+	old.UserID = p.UserID
 
 	return &old, s.db.Save(&old).Error
 }
