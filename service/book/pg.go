@@ -25,12 +25,11 @@ func (s *pgService) Create(_ context.Context, p *domain.Book) error {
 	res := []domain.Category{}
 	s.db.Find(&res)
 	for _, element := range res {
-		if p.CategoryID != element.Model.ID {
-			return ErrRecordNotFound
+		if p.CategoryID == element.Model.ID {
+			return s.db.Create(p).Error
 		}
 	}
-
-	return s.db.Create(p).Error
+	return ErrRecordNotFound
 }
 
 // Update implement Update for Book service
@@ -85,5 +84,6 @@ func (s *pgService) Delete(_ context.Context, p *domain.Book) error {
 		}
 		return err
 	}
+
 	return s.db.Delete(old).Error
 }
