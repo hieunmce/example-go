@@ -12,7 +12,10 @@ import (
 
 // CreateData data for CreateBook
 type CreateData struct {
-	Name string `json:"name"`
+	Name        string      `json:"name"`
+	Author      string      `json:"author"`
+	Description string      `json:"description"`
+	CategoryID  domain.UUID `json:"category_id"`
 }
 
 // CreateRequest request struct for CreateBook
@@ -36,7 +39,10 @@ func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 		var (
 			req  = request.(CreateRequest)
 			book = &domain.Book{
-				Name: req.Book.Name,
+				Name:        req.Book.Name,
+				Author:      req.Book.Author,
+				Description: req.Book.Description,
+				CategoryID:  req.Book.CategoryID,
 			}
 		)
 
