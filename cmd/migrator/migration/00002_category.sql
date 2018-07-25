@@ -10,4 +10,4 @@ CREATE TABLE "public"."categories" (
 -- +goose Down
 -- SQL in this section is executed when the migration is rolled back.
 
-DROP TABLE categories
+DROP TABLE "public"."categories"
