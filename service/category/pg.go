@@ -22,7 +22,15 @@ func NewPGService(db *gorm.DB) Service {
 
 // Create implement Create for Category service
 func (s *pgService) Create(_ context.Context, p *domain.Category) error {
-	return s.db.Create(p).Error
+
+	old := domain.Category{Model: domain.Model{ID: p.ID}}
+	if err := s.db.Find(&old).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return s.db.Create(&old).Error
+		}
+		return err
+	}
+	return ErrRecordExisted
 }
 
 // Update implement Update for Category service
