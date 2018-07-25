@@ -46,7 +46,7 @@ Time spent: **{{time_spent}}** hours spent in total
     * id (uuid)
     * name (string)
   * [ ] API must be able to get detail of a category.
-  * [ ] API must be able to get list of categories.
+  * [x] API must be able to get list of categories.
   * [ ] API must be able to create a category.
   * [ ] API must be able to update a category.
   * [ ] API must be able to delete a category.
