@@ -49,7 +49,7 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] API must be able to get list of categories.
   * [x] API must be able to create a category.
   * [x] API must be able to update a category.
-  * [x] API must be able to delete a category.
+  * [ ] API must be able to delete a category.
   * [ ] when delete categories all book belongs to that categories should deleted too.
   
 * [ ] Validate category is correct before (Create/Update):
