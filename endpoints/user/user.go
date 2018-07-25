@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 
-	"github.com/hieunmce/example-go/domain"
-	"github.com/hieunmce/example-go/service"
+	"github.com/phungvandat/example-go/domain"
+	"github.com/phungvandat/example-go/service"
 )
 
 // CreateData data for CreateUser
