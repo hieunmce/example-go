@@ -4,6 +4,7 @@ import (
 	"github.com/go-kit/kit/endpoint"
 	"github.com/luantranminh/example-go/service"
 
+	"github.com/luantranminh/example-go/endpoints/book"
 	"github.com/luantranminh/example-go/endpoints/category"
 	"github.com/luantranminh/example-go/endpoints/user"
 )
@@ -21,6 +22,12 @@ type Endpoints struct {
 	CreateCategory  endpoint.Endpoint
 	UpdateCategory  endpoint.Endpoint
 	DeleteCategory  endpoint.Endpoint
+
+	FindBook    endpoint.Endpoint
+	FindAllBook endpoint.Endpoint
+	CreateBook  endpoint.Endpoint
+	UpdateBook  endpoint.Endpoint
+	DeleteBook  endpoint.Endpoint
 }
 
 // MakeServerEndpoints returns an Endpoints struct
@@ -36,5 +43,10 @@ func MakeServerEndpoints(s service.Service) Endpoints {
 		CreateCategory:  category.MakeCreateEndpoint(s),
 		UpdateCategory:  category.MakeUpdateEndpoint(s),
 		DeleteCategory:  category.MakeDeleteEndpoint(s),
+		FindBook:        book.MakeFindEndPoint(s),
+		FindAllBook:     book.MakeFindAllEndpoint(s),
+		CreateBook:      book.MakeCreateEndpoint(s),
+		UpdateBook:      book.MakeUpdateEndpoint(s),
+		DeleteBook:      book.MakeDeleteEndpoint(s),
 	}
 }
