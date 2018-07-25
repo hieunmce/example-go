@@ -4,6 +4,7 @@ import (
 	"github.com/go-kit/kit/endpoint"
 	"github.com/neverdiefc/example-go/service"
 
+	"github.com/neverdiefc/example-go/endpoints/book"
 	"github.com/neverdiefc/example-go/endpoints/category"
 	"github.com/neverdiefc/example-go/endpoints/user"
 )
@@ -44,10 +45,10 @@ func MakeServerEndpoints(s service.Service) Endpoints {
 		UpdateCategory:  category.MakeUpdateEndpoint(s),
 		DeleteCategory:  category.MakeDeleteEndpoint(s),
 
-		FindBook:    category.MakeFindEndPoint(s),
-		FindAllBook: category.MakeFindAllEndpoint(s),
-		CreateBook:  category.MakeCreateEndpoint(s),
-		UpdateBook:  category.MakeUpdateEndpoint(s),
-		DeleteBook:  category.MakeDeleteEndpoint(s),
+		FindBook:    book.MakeFindEndPoint(s),
+		FindAllBook: book.MakeFindAllEndpoint(s),
+		CreateBook:  book.MakeCreateEndpoint(s),
+		UpdateBook:  book.MakeUpdateEndpoint(s),
+		DeleteBook:  book.MakeDeleteEndpoint(s),
 	}
 }

@@ -10,7 +10,8 @@ CREATE TABLE "public"."books" (
   "author" text,
   "description" text,
 
-  CONSTRAINT "books_pkey" PRIMARY KEY ("id")
+  CONSTRAINT "books_pkey" PRIMARY KEY ("id"),
+  CONSTRAINT "books_category_id_fkey" FOREIGN KEY (category_id) REFERENCES categories(id) NOT DEFERRABLE
 ) WITH (oids = false);
 
 -- +goose Down

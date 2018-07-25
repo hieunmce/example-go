@@ -4,7 +4,7 @@ package domain
 type Book struct {
 	Model
 	Name        string `json:"name"`
-	CategoryID  UUID   `sql:",type:uuid" json:"id"`
+	CategoryID  UUID   `json:"category_id"`
 	Author      string `json:"author"`
 	Description string `json:"description"`
 }

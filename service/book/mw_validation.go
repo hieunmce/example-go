@@ -2,6 +2,7 @@ package book
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/neverdiefc/example-go/domain"
 )
@@ -20,8 +21,16 @@ func ValidationMiddleware() func(Service) Service {
 }
 
 func (mw validationMiddleware) Create(ctx context.Context, book *domain.Book) (err error) {
+
 	if book.Name == "" || len(book.Name) <= 5 {
+
 		return ErrNameIsRequired
+	}
+	if book.Description == "" || len(book.Description) <= 5 {
+
+		fmt.Print(book, " ::::: ", len(book.Name))
+
+		return ErrDescriptionIsRequired
 	}
 
 	return mw.Service.Create(ctx, book)
@@ -36,6 +45,9 @@ func (mw validationMiddleware) Find(ctx context.Context, book *domain.Book) (*do
 func (mw validationMiddleware) Update(ctx context.Context, book *domain.Book) (*domain.Book, error) {
 	if book.Name == "" || len(book.Name) <= 5 {
 		return nil, ErrNameIsRequired
+	}
+	if book.Description == "" || len(book.Description) <= 5 {
+		return nil, ErrDescriptionIsRequired
 	}
 
 	return mw.Service.Update(ctx, book)
