@@ -25,7 +25,9 @@ func (mw validationMiddleware) Create(ctx context.Context, category *domain.Cate
 	if category.Name == "" {
 		return ErrNameIsRequired
 	}
-
+	if len(category.Name) < 5 {
+		return ErrminimumLength
+	}
 	return mw.Service.Create(ctx, category)
 }
 func (mw validationMiddleware) FindAll(ctx context.Context) ([]domain.Category, error) {
