@@ -56,18 +56,18 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] validate name of category is not empty and length > 5 characters.
   * [x] validate name of category not existed yet (for both create and update).
 
-* [ ] API must be able to CRUD books:
+* [x] API must be able to CRUD books:
   * [ ] Each book should have the following fields:
     * id (uuid)
     * name (string)
     * category_id (uuid)
     * author (string)
     * description (string)
-  * [ ] API must be able to get detail of a book.
-  * [ ] API must be able to get list of books.
-  * [ ] API must be able to create a book.
-  * [ ] API must be able to update a book.
-  * [ ] API must be able to delete a book.
+  * [x] API must be able to get detail of a book.
+  * [x] API must be able to get list of books.
+  * [x] API must be able to create a book.
+  * [x] API must be able to update a book.
+  * [x] API must be able to delete a book.
   
 * [ ] Validate books is correct before (Create/Update):
   * [ ] validate category of a book is exist, if not reject it with error message
