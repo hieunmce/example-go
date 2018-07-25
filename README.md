@@ -74,16 +74,16 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] validate name of a book is not empty and length > 5 characters. if not reject it with error message
   * [x] validate description of a book is not empty and length > 5 characters. if not reject it with error message
   
-* [ ] API must be able to make action: user lend a book:
-  * [ ] API should have the following fields:
+* [x] API must be able to make action: user lend a book:
+  * [x] API should have the following fields:
     * id (uuid)
     * book_id (uuid)
     * user_id (uuid)
     * from (datetime)
     * to (datetime)
-  * [ ] validate book_id of a book is exist, if not reject it with error message
-  * [ ] validate user_id of a user is exist, if not reject it with error message
-  * [ ] validate books is available to lend, if not available reject with error message
+  * [x] validate book_id of a book is exist, if not reject it with error message
+  * [x] validate user_id of a user is exist, if not reject it with error message
+  * [x] validate books is available to lend, if not available reject with error message
   
   
 #### Stage 2:

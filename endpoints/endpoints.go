@@ -6,6 +6,7 @@ import (
 
 	"github.com/luantranminh/example-go/endpoints/book"
 	"github.com/luantranminh/example-go/endpoints/category"
+	"github.com/luantranminh/example-go/endpoints/loan"
 	"github.com/luantranminh/example-go/endpoints/user"
 )
 
@@ -28,6 +29,12 @@ type Endpoints struct {
 	CreateBook  endpoint.Endpoint
 	UpdateBook  endpoint.Endpoint
 	DeleteBook  endpoint.Endpoint
+
+	FindLoan    endpoint.Endpoint
+	FindAllLoan endpoint.Endpoint
+	CreateLoan  endpoint.Endpoint
+	UpdateLoan  endpoint.Endpoint
+	DeleteLoan  endpoint.Endpoint
 }
 
 // MakeServerEndpoints returns an Endpoints struct
@@ -48,5 +55,10 @@ func MakeServerEndpoints(s service.Service) Endpoints {
 		CreateBook:      book.MakeCreateEndpoint(s),
 		UpdateBook:      book.MakeUpdateEndpoint(s),
 		DeleteBook:      book.MakeDeleteEndpoint(s),
+		FindLoan:        loan.MakeFindEndPoint(s),
+		FindAllLoan:     loan.MakeFindAllEndpoint(s),
+		CreateLoan:      loan.MakeCreateEndpoint(s),
+		UpdateLoan:      loan.MakeUpdateEndpoint(s),
+		DeleteLoan:      loan.MakeDeleteEndpoint(s),
 	}
 }
