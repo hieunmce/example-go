@@ -22,7 +22,14 @@ func NewPGService(db *gorm.DB) Service {
 
 // Create implement Create for Category service
 func (s *pgService) Create(_ context.Context, p *domain.Category) error {
-	return s.db.Create(p).Error
+	if err := s.db.Where("Name = ?", p.Name).Find(&p).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return s.db.Create(p).Error
+		}
+		return err
+
+	}
+	return ErrNameIsRequired
 }
 
 // Update implement Update for Category service
@@ -49,7 +56,6 @@ func (s *pgService) Find(_ context.Context, p *domain.Category) (*domain.Categor
 		}
 		return nil, err
 	}
-
 	return res, nil
 }
 

@@ -2,6 +2,7 @@ package category
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/trantrongkim98/example-go/domain"
 )
@@ -23,13 +24,15 @@ func ValidationMiddleware() func(Service) Service {
 		}
 	}
 }
-
 func (mw validationMiddleware) Create(ctx context.Context, category *domain.Category) (err error) {
-	if category.Name == "" {
+
+	if category.Name == "" || len(category.Name) <= 5 {
 		return ErrNameIsRequired
 	}
+
 	return mw.Service.Create(ctx, category)
 }
+
 func (mw validationMiddleware) FindAll(ctx context.Context) ([]domain.Category, error) {
 	return mw.Service.FindAll(ctx)
 }
@@ -41,9 +44,9 @@ func (mw validationMiddleware) Update(ctx context.Context, category *domain.Cate
 	if category.Name == "" {
 		return nil, ErrNameIsRequired
 	}
-
 	return mw.Service.Update(ctx, category)
 }
 func (mw validationMiddleware) Delete(ctx context.Context, category *domain.Category) error {
+	fmt.Println("assa")
 	return mw.Service.Delete(ctx, category)
 }
