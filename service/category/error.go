@@ -78,3 +78,4 @@ func (errMinimumLength) Error() string {
 func (errMinimumLength) StatusCode() int {
 	return http.StatusBadRequest
 }
+
