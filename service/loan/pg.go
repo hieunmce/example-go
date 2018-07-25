@@ -22,22 +22,46 @@ func NewPGService(db *gorm.DB) Service {
 
 // Create implement Create for Loan service
 func (s *pgService) Create(_ context.Context, p *domain.Loan) error {
-	res := []domain.Loan{}
-	s.db.Find(&res)
-	for _, element := range res {
-		if p.UserID == element.UserID {
-			return ErrRecordExisted
+	books := []domain.Book{}
+	users := []domain.User{}
+	loans := []domain.Loan{}
+	var userExisted = false
+	var bookExisted = false
+
+	s.db.Find(&users)
+	s.db.Find(&books)
+	s.db.Find(&loans)
+
+	for _, element := range loans {
+		if p.BookID == element.BookID {
+			return ErrBookIsNotAvailable
 		}
 	}
 
-	return s.db.Create(p).Error
+	for _, element := range users {
+		if p.UserID == element.ID {
+			userExisted = true
+			break
+		}
+	}
+
+	for _, element := range books {
+		if p.BookID == element.ID {
+			bookExisted = true
+			break
+		}
+	}
+
+	if bookExisted == true && userExisted == true {
+		return s.db.Create(p).Error
+	}
+
+	return ErrRecordNotFound
 }
 
 // Update implement Update for Loan service
 func (s *pgService) Update(_ context.Context, p *domain.Loan) (*domain.Loan, error) {
 	old := domain.Loan{Model: domain.Model{ID: p.ID}}
-	res := []domain.Loan{}
-	s.db.Find(&res)
 
 	if err := s.db.Find(&old).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -46,13 +70,9 @@ func (s *pgService) Update(_ context.Context, p *domain.Loan) (*domain.Loan, err
 		return nil, err
 	}
 
-	for _, element := range res {
-		if p.UserID == element.UserID {
-			return nil, ErrRecordExisted
-		}
-	}
-
 	old.UserID = p.UserID
+	old.BookID = p.BookID
+	old.To = p.To
 
 	return &old, s.db.Save(&old).Error
 }
@@ -85,8 +105,6 @@ func (s *pgService) Delete(_ context.Context, p *domain.Loan) error {
 		}
 		return err
 	}
-
-	s.db.Where("loan_id = ?", old.ID).Delete(domain.Book{})
 
 	return s.db.Delete(old).Error
 }

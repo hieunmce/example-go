@@ -12,6 +12,7 @@ import (
 	"github.com/luantranminh/example-go/endpoints"
 	bookDecode "github.com/luantranminh/example-go/http/decode/json/book"
 	categoryDecode "github.com/luantranminh/example-go/http/decode/json/category"
+	loanDecode "github.com/luantranminh/example-go/http/decode/json/loan"
 	userDecode "github.com/luantranminh/example-go/http/decode/json/user"
 )
 
@@ -138,6 +139,39 @@ func NewHTTPHandler(endpoints endpoints.Endpoints,
 		r.Delete("/{book_id}", httptransport.NewServer(
 			endpoints.DeleteBook,
 			bookDecode.DeleteRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+	})
+
+	r.Route("/loans", func(r chi.Router) {
+		r.Get("/", httptransport.NewServer(
+			endpoints.FindAllLoan,
+			loanDecode.FindAllRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Get("/{loan_id}", httptransport.NewServer(
+			endpoints.FindLoan,
+			loanDecode.FindRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Post("/", httptransport.NewServer(
+			endpoints.CreateLoan,
+			loanDecode.CreateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Put("/{loan_id}", httptransport.NewServer(
+			endpoints.UpdateLoan,
+			loanDecode.UpdateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Delete("/{loan_id}", httptransport.NewServer(
+			endpoints.DeleteLoan,
+			loanDecode.DeleteRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)

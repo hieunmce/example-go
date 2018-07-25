@@ -6,7 +6,7 @@ CREATE TABLE "public"."books" (
   "deleted_at" timestamptz,
   "name" text,
   "author" text,
-  "descripsion" text,
+  "description" text,
   "category_id" uuid references categories,
   CONSTRAINT "books_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);

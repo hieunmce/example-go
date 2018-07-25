@@ -6,14 +6,15 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound        = errNotFound{}
-	ErrUnknown         = errUnknown{}
-	ErrNameIsRequired  = errNameIsRequired{}
-	ErrEmailIsRequired = errEmailIsRequired{}
-	ErrEmailIsInvalid  = errEmailIsInvalid{}
-	ErrRecordNotFound  = errRecordNotFound{}
-	ErrNameTooShort    = errNameTooShort{}
-	ErrRecordExisted   = errRecordExisted{}
+	ErrNotFound           = errNotFound{}
+	ErrUnknown            = errUnknown{}
+	ErrNameIsRequired     = errNameIsRequired{}
+	ErrEmailIsRequired    = errEmailIsRequired{}
+	ErrEmailIsInvalid     = errEmailIsInvalid{}
+	ErrRecordNotFound     = errRecordNotFound{}
+	ErrNameTooShort       = errNameTooShort{}
+	ErrRecordExisted      = errRecordExisted{}
+	ErrBookIsNotAvailable = errBookIsNotAvailable{}
 )
 
 type errNotFound struct{}
@@ -88,5 +89,15 @@ func (errRecordExisted) Error() string {
 }
 
 func (errRecordExisted) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errBookIsNotAvailable struct{}
+
+func (errBookIsNotAvailable) Error() string {
+	return "This book is not available"
+}
+
+func (errBookIsNotAvailable) StatusCode() int {
 	return http.StatusBadRequest
 }
