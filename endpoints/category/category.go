@@ -79,7 +79,7 @@ type FindAllRequest struct{}
 
 // FindAllResponse request struct for find all Category
 type FindAllResponse struct {
-	Categorys []domain.Category `json:"categorys"`
+	Categorys []domain.Category `json:"categories"`
 }
 
 // MakeFindAllEndpoint make endpoint for find all Category

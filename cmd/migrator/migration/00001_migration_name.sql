@@ -13,5 +13,4 @@ CREATE TABLE "public"."users" (
 -- +goose Down
 -- SQL in this section is executed when the migration is rolled back.
 
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
+DROP TABLE "public"."users";
