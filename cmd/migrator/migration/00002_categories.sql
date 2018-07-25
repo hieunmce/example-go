@@ -6,6 +6,7 @@ CREATE TABLE "public"."categories" (
   "created_at" timestamptz DEFAULT now(),
   "deleted_at" timestamptz,
   "name" text,
+  UNIQUE("name"),
   CONSTRAINT "categories_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 

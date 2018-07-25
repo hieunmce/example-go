@@ -13,6 +13,7 @@ var (
 	ErrEmailIsInvalid  = errEmailIsInvalid{}
 	ErrRecordNotFound  = errRecordNotFound{}
 	ErrminimumLength   = errMinimumLength{}
+	ErrExistName       = errExistName{}
 )
 
 type errNotFound struct{}
@@ -76,6 +77,15 @@ func (errMinimumLength) Error() string {
 	return "Name of category is length > 5 characters"
 }
 func (errMinimumLength) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errExistName struct{}
+
+func (errExistName) Error() string {
+	return "Name is exist in database"
+}
+func (errExistName) StatusCode() int {
 	return http.StatusBadRequest
 }
 
