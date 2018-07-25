@@ -20,11 +20,12 @@ func ValidationMiddleware() func(Service) Service {
 }
 
 func (mw validationMiddleware) Create(ctx context.Context, book *domain.Book) (err error) {
-	if book.Name == "" {
+	switch {
+	case book.Name == "":
 		return ErrNameIsRequired
-	}
-
-	if len([]rune(book.Name)) <= 5 {
+	case len([]rune(book.Name)) <= 5:
+		return ErrNameTooShort
+	case len([]rune(book.Description)) <= 5:
 		return ErrNameTooShort
 	}
 
@@ -38,11 +39,12 @@ func (mw validationMiddleware) Find(ctx context.Context, book *domain.Book) (*do
 }
 
 func (mw validationMiddleware) Update(ctx context.Context, book *domain.Book) (*domain.Book, error) {
-	if book.Name == "" {
+	switch {
+	case book.Name == "":
 		return nil, ErrNameIsRequired
-	}
-
-	if len([]rune(book.Name)) <= 5 {
+	case len([]rune(book.Name)) <= 5:
+		return nil, ErrNameTooShort
+	case len([]rune(book.Description)) <= 5:
 		return nil, ErrNameTooShort
 	}
 

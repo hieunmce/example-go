@@ -22,11 +22,11 @@ func NewPGService(db *gorm.DB) Service {
 
 // Create implement Create for Book service
 func (s *pgService) Create(_ context.Context, p *domain.Book) error {
-	res := []domain.Book{}
+	res := []domain.Category{}
 	s.db.Find(&res)
 	for _, element := range res {
-		if p.Name == element.Name {
-			return ErrRecordExisted
+		if p.CategoryID != element.Model.ID {
+			return ErrRecordNotFound
 		}
 	}
 
@@ -36,7 +36,7 @@ func (s *pgService) Create(_ context.Context, p *domain.Book) error {
 // Update implement Update for Book service
 func (s *pgService) Update(_ context.Context, p *domain.Book) (*domain.Book, error) {
 	old := domain.Book{Model: domain.Model{ID: p.ID}}
-	res := []domain.Book{}
+	res := []domain.Category{}
 	s.db.Find(&res)
 
 	if err := s.db.Find(&old).Error; err != nil {
@@ -47,8 +47,8 @@ func (s *pgService) Update(_ context.Context, p *domain.Book) (*domain.Book, err
 	}
 
 	for _, element := range res {
-		if p.Name == element.Name {
-			return nil, ErrRecordExisted
+		if p.CategoryID != element.Model.ID {
+			return nil, ErrRecordNotFound
 		}
 	}
 

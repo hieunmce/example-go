@@ -69,10 +69,10 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] API must be able to update a book.
   * [x] API must be able to delete a book.
   
-* [ ] Validate books is correct before (Create/Update):
-  * [ ] validate category of a book is exist, if not reject it with error message
-  * [ ] validate name of a book is not empty and length > 5 characters. if not reject it with error message
-  * [ ] validate description of a book is not empty and length > 5 characters. if not reject it with error message
+* [x] Validate books is correct before (Create/Update):
+  * [x] validate category of a book is exist, if not reject it with error message
+  * [x] validate name of a book is not empty and length > 5 characters. if not reject it with error message
+  * [x] validate description of a book is not empty and length > 5 characters. if not reject it with error message
   
 * [ ] API must be able to make action: user lend a book:
   * [ ] API should have the following fields:
