@@ -45,11 +45,11 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] Each category should have the following fields:
     * id (uuid)
     * name (string)
-  * [ ] API must be able to get detail of a category.
+  * [x] API must be able to get detail of a category.
   * [x] API must be able to get list of categories.
-  * [ ] API must be able to create a category.
-  * [ ] API must be able to update a category.
-  * [ ] API must be able to delete a category.
+  * [x] API must be able to create a category.
+  * [x] API must be able to update a category.
+  * [x] API must be able to delete a category.
   * [ ] when delete categories all book belongs to that categories should deleted too.
   
 * [ ] Validate category is correct before (Create/Update):
@@ -57,17 +57,17 @@ Time spent: **{{time_spent}}** hours spent in total
   * [ ] validate name of category not existed yet (for both create and update).
 
 * [ ] API must be able to CRUD books:
-  * [ ] Each book should have the following fields:
+  * [x] Each book should have the following fields:
     * id (uuid)
     * name (string)
     * category_id (uuid)
     * author (string)
     * description (string)
-  * [ ] API must be able to get detail of a book.
-  * [ ] API must be able to get list of books.
-  * [ ] API must be able to create a book.
-  * [ ] API must be able to update a book.
-  * [ ] API must be able to delete a book.
+  * [x] API must be able to get detail of a book.
+  * [x] API must be able to get list of books.
+  * [x] API must be able to create a book.
+  * [x] API must be able to update a book.
+  * [x] API must be able to delete a book.
   
 * [ ] Validate books is correct before (Create/Update):
   * [ ] validate category of a book is exist, if not reject it with error message

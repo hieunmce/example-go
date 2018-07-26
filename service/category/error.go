@@ -6,12 +6,12 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound        = errNotFound{}
-	ErrUnknown         = errUnknown{}
-	ErrNameIsRequired  = errNameIsRequired{}
-	ErrEmailIsRequired = errEmailIsRequired{}
-	ErrEmailIsInvalid  = errEmailIsInvalid{}
-	ErrRecordNotFound  = errRecordNotFound{}
+	ErrNotFound           = errNotFound{}
+	ErrUnknown            = errUnknown{}
+	ErrNameIsRequired     = errNameIsRequired{}
+	ErrNameLengthRequired = errNameIsLengthRequired{}
+	ErrRecordNotFound     = errRecordNotFound{}
+	// ErrRecordExisted      = errRecordExisted{}
 )
 
 type errNotFound struct{}
@@ -32,24 +32,6 @@ func (errUnknown) StatusCode() int {
 	return http.StatusBadRequest
 }
 
-type errEmailIsRequired struct{}
-
-func (errEmailIsRequired) Error() string {
-	return "email is required"
-}
-func (errEmailIsRequired) StatusCode() int {
-	return http.StatusBadRequest
-}
-
-type errEmailIsInvalid struct{}
-
-func (errEmailIsInvalid) Error() string {
-	return "email address is invalid"
-}
-func (errEmailIsInvalid) StatusCode() int {
-	return http.StatusBadRequest
-}
-
 type errRecordNotFound struct{}
 
 func (errRecordNotFound) Error() string {
@@ -62,9 +44,29 @@ func (errRecordNotFound) StatusCode() int {
 type errNameIsRequired struct{}
 
 func (errNameIsRequired) Error() string {
-	return "user name is required"
+	return "category name is required"
 }
 
 func (errNameIsRequired) StatusCode() int {
 	return http.StatusBadRequest
 }
+
+type errNameIsLengthRequired struct{}
+
+func (errNameIsLengthRequired) Error() string {
+	return "category name must have more than 5 characters."
+}
+
+func (errNameIsLengthRequired) StatusCode() int {
+	return http.StatusLengthRequired
+}
+
+// type errRecordExisted struct{}
+
+// func (errRecordExisted) Error() string {
+// 	return "category existed"
+// }
+
+// func (errRecordExisted) StatusCode() int {
+// 	return http.StatusConflict
+// }
