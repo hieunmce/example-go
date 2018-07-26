@@ -12,11 +12,12 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 
-	"github.com/hieunmce/example-go/config/database/pg"
-	"github.com/hieunmce/example-go/endpoints"
-	serviceHttp "github.com/hieunmce/example-go/http"
-	"github.com/hieunmce/example-go/service"
-	userSvc "github.com/hieunmce/example-go/service/user"
+	"github.com/trantrongkim98/example-go/config/database/pg"
+	"github.com/trantrongkim98/example-go/endpoints"
+	serviceHttp "github.com/trantrongkim98/example-go/http"
+	"github.com/trantrongkim98/example-go/service"
+	categorySvc "github.com/trantrongkim98/example-go/service/category"
+	userSvc "github.com/trantrongkim98/example-go/service/user"
 )
 
 func main() {
@@ -57,6 +58,11 @@ func main() {
 				userSvc.NewPGService(pgDB),
 				userSvc.ValidationMiddleware(),
 			).(userSvc.Service),
+
+			CategoryService: service.Compose(
+				categorySvc.NewPGService(pgDB),
+				categorySvc.ValidationMiddleware(),
+			).(categorySvc.Service),
 		}
 	)
 	defer closeDB()
