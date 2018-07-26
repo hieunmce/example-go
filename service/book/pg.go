@@ -46,13 +46,13 @@ func (s *pgService) Update(_ context.Context, p *domain.Book) (*domain.Book, err
 	}
 	if !p.CategoryID.IsZero() {
 		old.CategoryID = p.CategoryID
-		// var checkExist = s.db.Where("id = ?", p.CategoryID).Find(&domain.Category{}).Error
-		// if checkExist != nil {
-		// 	if checkExist == gorm.ErrRecordNotFound {
-		// 		return nil, ErrNotExistCategoryID
-		// 	}
-		// 	return nil, checkExist
-		// }
+		var checkExist = s.db.Where("id = ?", p.CategoryID).Find(&domain.Category{}).Error
+		if checkExist != nil {
+			if checkExist == gorm.ErrRecordNotFound {
+				return nil, ErrNotExistCategoryID
+			}
+			return nil, checkExist
+		}
 	}
 
 	if p.Author != "" {
