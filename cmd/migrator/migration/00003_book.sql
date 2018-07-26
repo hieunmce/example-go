@@ -9,7 +9,7 @@ CREATE TABLE "public"."books" (
   "name" text,
   "description" text,
   "author" text,
-  CONSTRAINT "books_pkey" PRIMARY KEY ("id"),
+
   CONSTRAINT "books_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES categories("id") NOT DEFERRABLE
 ) WITH (oids = false);
 
@@ -17,3 +17,4 @@ CREATE TABLE "public"."books" (
 -- SQL in this section is executed when the migration is rolled back.
 
 DROP TABLE "public"."books";
+
