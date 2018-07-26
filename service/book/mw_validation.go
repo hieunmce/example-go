@@ -2,7 +2,6 @@ package book
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/neverdiefc/example-go/domain"
 )
@@ -27,8 +26,6 @@ func (mw validationMiddleware) Create(ctx context.Context, book *domain.Book) (e
 		return ErrNameIsRequired
 	}
 	if book.Description == "" || len(book.Description) <= 5 {
-
-		fmt.Print(book, " ::::: ", len(book.Name))
 
 		return ErrDescriptionIsRequired
 	}
