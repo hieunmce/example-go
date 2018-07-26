@@ -73,6 +73,7 @@ func (s *pgService) FindAll(_ context.Context) ([]domain.Book, error) {
 
 // Delete implement Delete for Book service
 func (s *pgService) Delete(_ context.Context, p *domain.Book) error {
+
 	old := domain.Book{Model: domain.Model{ID: p.ID}}
 	if err := s.db.Find(&old).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
