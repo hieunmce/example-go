@@ -38,9 +38,9 @@ func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 		var (
 			req  = request.(CreateRequest)
 			book = &domain.Book{
-				Name:  			req.Book.Name,
-				Author: 		req.Book.Author,
-				Desctiption:	req.Book.Description
+				Name:        req.Book.Name,
+				Author:      req.Book.Author,
+				Description: req.Book.Description,
 			}
 		)
 
@@ -100,11 +100,11 @@ func MakeFindAllEndpoint(s service.Service) endpoint.Endpoint {
 
 // UpdateData data for Create
 type UpdateData struct {
-	ID    		domain.UUID `json:"-"`
+	ID          domain.UUID `json:"-"`
 	Category_id domain.UUID `json:"-"`
-	Name  		string  	`json:"name"`
-	Author		string 		`json:"author"`
-	Description string		`json:"description"`
+	Name        string      `json:"name"`
+	Author      string      `json:"author"`
+	Description string      `json:"description"`
 }
 
 // UpdateRequest request struct for update
@@ -123,10 +123,10 @@ func MakeUpdateEndpoint(s service.Service) endpoint.Endpoint {
 		var (
 			req  = request.(UpdateRequest)
 			book = domain.Book{
-				Model: domain.Model{ID: req.Book.ID,Category_id: req.Book.Category_id},
-				Name:  req.Book.Name,
-				Author: req.Book.Author
-				Description: req.Book.Description
+				Model:       domain.Model{ID: req.Book.ID},
+				Name:        req.Book.Name,
+				Author:      req.Book.Author,
+				Description: req.Book.Description,
 			}
 		)
 

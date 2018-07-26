@@ -6,12 +6,10 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound              = errNotFound{}
-	ErrUnknown               = errUnknown{}
-	ErrNameIsRequired        = errNameIsRequired{}
-	ErrAuthorIsRequired      = errAuthorIsRequired{}
-	ErrDescriptionIsRequired = errDescriptionIsRequired{}
-	ErrRecordNotFound        = errRecordNotFound{}
+	ErrNotFound       = errNotFound{}
+	ErrUnknown        = errUnknown{}
+	ErrNameIsRequired = errNameIsRequired{}
+	ErrRecordNotFound = errRecordNotFound{}
 )
 
 type errNotFound struct{}
@@ -30,24 +28,6 @@ func (errUnknown) Error() string {
 }
 func (errUnknown) StatusCode() int {
 	return http.StatusBadRequest
-}
-
-type errAuthorIsRequired struct{}
-
-func (errAuthorNotFound) Error() string {
-	return "Author not found"
-}
-func (errAuthorNotFound) StatusCode() int {
-	return http.StatusNotFound
-}
-
-type errDescriptionIsRequired struct{}
-
-func (errDescriptionNotFound) Error() string {
-	return "Description not found"
-}
-func (errAuthorNotFound) StatusCode() int {
-	return http.StatusNotFound
 }
 
 type errRecordNotFound struct{}
