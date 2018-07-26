@@ -66,8 +66,8 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] API must be able to get detail of a book.
   * [x] API must be able to get list of books.
   * [x] API must be able to create a book.
-  * [ ] API must be able to update a book.
-  * [ ] API must be able to delete a book.
+  * [x] API must be able to update a book.
+  * [x] API must be able to delete a book.
   
 * [x] Validate books is correct before (Create/Update):
   * [x] validate category of a book is exist, if not reject it with error message
