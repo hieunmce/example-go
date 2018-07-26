@@ -19,6 +19,7 @@ import (
 
 	bookSvc "github.com/neverdiefc/example-go/service/book"
 	categorySvc "github.com/neverdiefc/example-go/service/category"
+	lendbookSvc "github.com/neverdiefc/example-go/service/lendbook"
 	userSvc "github.com/neverdiefc/example-go/service/user"
 )
 
@@ -70,6 +71,11 @@ func main() {
 				bookSvc.NewPGService(pgDB),
 				bookSvc.ValidationMiddleware(),
 			).(bookSvc.Service),
+
+			LendbookService: service.Compose(
+				lendbookSvc.NewPGService(pgDB),
+				lendbookSvc.ValidationMiddleware(),
+			).(lendbookSvc.Service),
 		}
 	)
 	defer closeDB()
