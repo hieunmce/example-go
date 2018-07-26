@@ -2,7 +2,6 @@ package book
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/jinzhu/gorm"
 
@@ -23,8 +22,7 @@ func NewPGService(db *gorm.DB) Service {
 
 // Create implement Create for Book service
 func (s *pgService) Create(_ context.Context, p *domain.Book) error {
-	fmt.Println(s.db.Where("Category_id = ?", p.Category_id).Find(&p).Error, 123)
-	if err := s.db.Where("Category_id = ?", p.Category_id).Find(&p).Error; err == nil {
+	if err := s.db.Where("id = ?", p.Category_id).Find(&domain.Category{}).Error; err != nil {
 		return ErrCategoryNotFound
 	}
 	return s.db.Create(p).Error
@@ -33,22 +31,18 @@ func (s *pgService) Create(_ context.Context, p *domain.Book) error {
 // Update implement Update for Book service
 func (s *pgService) Update(_ context.Context, p *domain.Book) (*domain.Book, error) {
 	old := domain.Book{Model: domain.Model{ID: p.ID}}
-	fmt.Println(old)
+
 	if err := s.db.Find(&old).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, ErrNotFound
 		}
 		return nil, err
 	}
-	if err := s.db.Where("Name = ?", p.Name).First(&p).Error; err == nil {
-		if err == gorm.ErrRecordNotFound {
-			return nil, ErrNotFound
-		}
-		return nil, err
-	}
-	old.ID = p.ID
+	old.Name = p.Name
+	old.Category_id = p.Category_id
 	old.Author = p.Author
 	old.Description = p.Description
+
 	return &old, s.db.Save(&old).Error
 }
 
