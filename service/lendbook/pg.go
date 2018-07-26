@@ -23,7 +23,32 @@ func NewPGService(db *gorm.DB) Service {
 // Create implement Create for Lendbook service
 func (s *pgService) Create(_ context.Context, p *domain.Lendbook) error {
 
-	return s.db.Create(p).Error
+	user := domain.User{Model: domain.Model{ID: p.UserID}}
+	book := domain.Book{Model: domain.Model{ID: p.BookID}}
+
+	if err := s.db.Find(&book).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+
+			return ErrRecordBookNotFound
+		}
+		return err
+	}
+
+	if err := s.db.Find(&user).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return ErrRecordUserNotFound
+		}
+		return err
+	}
+
+	if err := s.db.Where("book_id = ?", p.BookID).Find(&domain.Lendbook{}).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return s.db.Create(p).Error
+		}
+		return err
+	}
+	return ErrBookIsBusy
+
 }
 
 // Update implement Update for Lendbook service
@@ -37,12 +62,34 @@ func (s *pgService) Update(_ context.Context, p *domain.Lendbook) (*domain.Lendb
 		return nil, err
 	}
 
-	old.BookID = p.BookID
-	old.UserID = p.UserID
-	old.From = p.From
-	old.To = p.To
+	user := domain.User{Model: domain.Model{ID: p.UserID}}
+	book := domain.Book{Model: domain.Model{ID: p.BookID}}
 
-	return &old, s.db.Save(&old).Error
+	if err := s.db.Find(&user).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, ErrRecordUserNotFound
+		}
+		return nil, err
+	}
+
+	if err := s.db.Find(&book).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, ErrRecordBookNotFound
+		}
+		return nil, err
+	}
+
+	if err := s.db.Where("book_id = ?", p.BookID).Find(&domain.Lendbook{}).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			old.BookID = p.BookID
+			old.UserID = p.UserID
+			old.From = p.From
+			old.To = p.To
+			return &old, s.db.Save(&old).Error
+		}
+		return nil, err
+	}
+	return nil, ErrBookIsBusy
 
 }
 
@@ -75,10 +122,5 @@ func (s *pgService) Delete(_ context.Context, p *domain.Lendbook) error {
 		}
 		return err
 	}
-
-	if err := s.db.Where("lendbook_id = ?", p.ID).Delete(&domain.Book{}).Error; err != nil {
-		return err
-	}
-
 	return s.db.Delete(old).Error
 }

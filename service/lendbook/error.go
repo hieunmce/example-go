@@ -6,10 +6,13 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound       = errNotFound{}
-	ErrRecordExisted  = errRecordExisted{}
-	ErrUnknown        = errUnknown{}
-	ErrNameIsRequired = errNameIsRequired{}
+	ErrNotFound           = errNotFound{}
+	ErrRecordExisted      = errRecordExisted{}
+	ErrUnknown            = errUnknown{}
+	ErrRecordBookNotFound = errRecordBookNotFound{}
+	ErrRecordUserNotFound = errRecordUserNotFound{}
+	ErrBookIsBusy         = errBookIsBusy{}
+
 	ErrRecordNotFound = errRecordNotFound{}
 )
 
@@ -49,12 +52,32 @@ func (errRecordNotFound) StatusCode() int {
 	return http.StatusNotFound
 }
 
-type errNameIsRequired struct{}
+type errRecordBookNotFound struct{}
 
-func (errNameIsRequired) Error() string {
-	return "user name is required"
+func (errRecordBookNotFound) Error() string {
+	return "record book not found"
 }
 
-func (errNameIsRequired) StatusCode() int {
+func (errRecordBookNotFound) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errRecordUserNotFound struct{}
+
+func (errRecordUserNotFound) Error() string {
+	return "record user not found"
+}
+
+func (errRecordUserNotFound) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errBookIsBusy struct{}
+
+func (errBookIsBusy) Error() string {
+	return "Book has been borrowed"
+}
+
+func (errBookIsBusy) StatusCode() int {
 	return http.StatusBadRequest
 }
