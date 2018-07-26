@@ -12,9 +12,10 @@ import (
 
 // CreateData data for CreateBook
 type CreateData struct {
-	Name        string `json:"name"`
-	Author      string `json:"author"`
-	Description string `json:"description"`
+	Name        string      `json:"name"`
+	Category_id domain.UUID `json:"category_id"`
+	Author      string      `json:"author"`
+	Description string      `json:"description"`
 }
 
 // CreateRequest request struct for CreateBook
@@ -39,6 +40,7 @@ func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 			req  = request.(CreateRequest)
 			book = &domain.Book{
 				Name:        req.Book.Name,
+				Category_id: req.Book.Category_id,
 				Author:      req.Book.Author,
 				Description: req.Book.Description,
 			}
@@ -101,7 +103,7 @@ func MakeFindAllEndpoint(s service.Service) endpoint.Endpoint {
 // UpdateData data for Create
 type UpdateData struct {
 	ID          domain.UUID `json:"-"`
-	Category_id domain.UUID `json:"-"`
+	Category_id domain.UUID `json:"category_id"`
 	Name        string      `json:"name"`
 	Author      string      `json:"author"`
 	Description string      `json:"description"`
@@ -125,6 +127,7 @@ func MakeUpdateEndpoint(s service.Service) endpoint.Endpoint {
 			book = domain.Book{
 				Model:       domain.Model{ID: req.Book.ID},
 				Name:        req.Book.Name,
+				Category_id: req.Book.Category_id,
 				Author:      req.Book.Author,
 				Description: req.Book.Description,
 			}

@@ -6,10 +6,12 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound       = errNotFound{}
-	ErrUnknown        = errUnknown{}
-	ErrNameIsRequired = errNameIsRequired{}
-	ErrRecordNotFound = errRecordNotFound{}
+	ErrNotFound            = errNotFound{}
+	ErrUnknown             = errUnknown{}
+	ErrCategoryNotFound    = errCategoryNotFound{}
+	ErrDescriptionRequired = errDescriptionRequired{}
+	ErrNameIsRequired      = errNameIsRequired{}
+	ErrRecordNotFound      = errRecordNotFound{}
 )
 
 type errNotFound struct{}
@@ -21,6 +23,15 @@ func (errNotFound) StatusCode() int {
 	return http.StatusNotFound
 }
 
+type errCategoryNotFound struct{}
+
+func (errCategoryNotFound) Error() string {
+	return "Category not Found"
+}
+func (errCategoryNotFound) StatusCode() int {
+	return http.StatusNotFound
+}
+
 type errUnknown struct{}
 
 func (errUnknown) Error() string {
@@ -28,6 +39,15 @@ func (errUnknown) Error() string {
 }
 func (errUnknown) StatusCode() int {
 	return http.StatusBadRequest
+}
+
+type errDescriptionRequired struct{}
+
+func (errDescriptionRequired) Error() string {
+	return "length book is empty and length <= 5 characters"
+}
+func (errDescriptionRequired) StatusCode() int {
+	return http.StatusNotFound
 }
 
 type errRecordNotFound struct{}
