@@ -50,29 +50,29 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] API must be able to create a category.
   * [x] API must be able to update a category.
   * [x] API must be able to delete a category.
-  * [ ] when delete categories all book belongs to that categories should deleted too.
+  * [x] when delete categories all book belongs to that categories should deleted too.
   
 * [x] Validate category is correct before (Create/Update):
   * [x] validate name of category is not empty and length > 5 characters.
   * [x] validate name of category not existed yet (for both create and update).
 
-* [ ] API must be able to CRUD books:
-  * [ ] Each book should have the following fields:
+* [x] API must be able to CRUD books:
+  * [x] Each book should have the following fields:
     * id (uuid)
     * name (string)
     * category_id (uuid)
     * author (string)
     * description (string)
-  * [ ] API must be able to get detail of a book.
-  * [ ] API must be able to get list of books.
-  * [ ] API must be able to create a book.
-  * [ ] API must be able to update a book.
-  * [ ] API must be able to delete a book.
+  * [x] API must be able to get detail of a book.
+  * [x] API must be able to get list of books.
+  * [x] API must be able to create a book.
+  * [x] API must be able to update a book.
+  * [x] API must be able to delete a book.
   
-* [ ] Validate books is correct before (Create/Update):
-  * [ ] validate category of a book is exist, if not reject it with error message
-  * [ ] validate name of a book is not empty and length > 5 characters. if not reject it with error message
-  * [ ] validate description of a book is not empty and length > 5 characters. if not reject it with error message
+* [x] Validate books is correct before (Create/Update):
+  * [x] validate category of a book is exist, if not reject it with error message
+  * [x] validate name of a book is not empty and length > 5 characters. if not reject it with error message
+  * [x] validate description of a book is not empty and length > 5 characters. if not reject it with error message
   
 * [ ] API must be able to make action: user lend a book:
   * [ ] API should have the following fields:
