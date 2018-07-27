@@ -10,6 +10,7 @@ import (
 	httptransport "github.com/go-kit/kit/transport/http"
 
 	"github.com/trantrongkim98/example-go/endpoints"
+	categoryDecode "github.com/trantrongkim98/example-go/http/decode/json/category"
 	userDecode "github.com/trantrongkim98/example-go/http/decode/json/user"
 )
 
