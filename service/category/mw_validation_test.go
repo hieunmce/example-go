@@ -208,27 +208,32 @@ func Test_validationMiddleware_Update(t *testing.T) {
 }
 
 func Test_validationMiddleware_Delete(t *testing.T) {
-	type fields struct {
-		Service Service
+	serverMock := &ServiceMock{
+		DeleteFunc: func(_ context.Context, p *domain.Category) error {
+			return nil
+		},
 	}
+	defaultCtx := context.Background()
 	type args struct {
-		ctx      context.Context
 		category *domain.Category
 	}
 	tests := []struct {
 		name    string
-		fields  fields
 		args    args
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name:    "sucess delete",
+			args:    args{&domain.Category{}},
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mw := validationMiddleware{
-				Service: tt.fields.Service,
+				Service: serverMock,
 			}
-			if err := mw.Delete(tt.args.ctx, tt.args.category); (err != nil) != tt.wantErr {
+			if err := mw.Delete(defaultCtx, tt.args.category); (err != nil) != tt.wantErr {
 				t.Errorf("validationMiddleware.Delete() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
