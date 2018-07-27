@@ -142,5 +142,38 @@ func NewHTTPHandler(endpoints endpoints.Endpoints,
 			options...,
 		).ServeHTTP)
 	})
+
+	r.Route("/lendbooks", func(r chi.Router) {
+		r.Get("/", httptransport.NewServer(
+			endpoints.FindAllLendBook,
+			lendbookDecode.FindAllRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Get("/{lendbook_id}", httptransport.NewServer(
+			endpoints.FindLendBook,
+			lendbookDecode.FindRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Post("/", httptransport.NewServer(
+			endpoints.CreateLendBook,
+			lendbookDecode.CreateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Put("/{lendbook_id}", httptransport.NewServer(
+			endpoints.UpdateLendBook,
+			lendbookDecode.UpdateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Delete("/{lendbook_id}", httptransport.NewServer(
+			endpoints.DeleteLendBook,
+			lendbookDecode.DeleteRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+	})
 	return r
 }
