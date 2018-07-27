@@ -81,8 +81,8 @@ Time spent: **{{time_spent}}** hours spent in total
     * user_id (uuid)
     * from (datetime)
     * to (datetime)
-  * [ ] validate book_id of a book is exist, if not reject it with error message
-  * [ ] validate user_id of a user is exist, if not reject it with error message
+  * [x] validate book_id of a book is exist, if not reject it with error message
+  * [x] validate user_id of a user is exist, if not reject it with error message
   * [ ] validate books is available to lend, if not available reject with error message
   
   

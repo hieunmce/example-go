@@ -70,7 +70,7 @@ func main() {
 			).(bookSvc.Service),
 			LendService: service.Compose(
 				lendSvc.NewPGService(pgDB),
-				// lendSvc.ValidationMiddleware(),
+				lendSvc.ValidationMiddleware(),
 			).(lendSvc.Service),
 		}
 	)

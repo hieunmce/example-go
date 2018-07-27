@@ -6,13 +6,14 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound             = errNotFound{}
-	ErrUnknown              = errUnknown{}
-	ErrNameIsRequired       = errNameIsRequired{}
-	ErrRecordNotFound       = errRecordNotFound{}
-	ErrCategoryNotFound     = errCategoryNotFound{}
-	ErrNameIsInvalid        = errNameIsInvalid{}
-	ErrDescriptionIsInvalid = errDescriptionIsInvalid{}
+	ErrNotFound              = errNotFound{}
+	ErrUnknown               = errUnknown{}
+	ErrNameIsRequired        = errNameIsRequired{}
+	ErrRecordNotFound        = errRecordNotFound{}
+	ErrCategoryNotFound      = errCategoryNotFound{}
+	ErrNameIsInvalid         = errNameIsInvalid{}
+	ErrDescriptionIsInvalid  = errDescriptionIsInvalid{}
+	ErrDescriptionIsRequired = errDescriptionIsRequired{}
 )
 
 type errNotFound struct{}
@@ -77,5 +78,14 @@ func (errDescriptionIsInvalid) Error() string {
 	return "description is invalid, need to have more than 5 character"
 }
 func (errDescriptionIsInvalid) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errDescriptionIsRequired struct{}
+
+func (errDescriptionIsRequired) Error() string {
+	return "description is required"
+}
+func (errDescriptionIsRequired) StatusCode() int {
 	return http.StatusBadRequest
 }

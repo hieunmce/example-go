@@ -23,6 +23,9 @@ func (mw validationMiddleware) Create(ctx context.Context, book *domain.Book) (e
 	if book.Name == "" {
 		return ErrNameIsRequired
 	}
+	if book.Description == "" {
+		return ErrDescriptionIsRequired
+	}
 	if len(book.Name) < 6 {
 		return ErrNameIsInvalid
 	}
