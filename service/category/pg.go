@@ -29,7 +29,7 @@ func (s *pgService) Create(_ context.Context, p *domain.Category) error {
 		return err
 
 	}
-	return ErrNameIsRequired
+	return s.db.Create(p).Error
 }
 
 // Update implement Update for Category service

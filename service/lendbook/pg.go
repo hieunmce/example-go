@@ -22,10 +22,36 @@ func NewPGService(db *gorm.DB) Service {
 
 // Create implement Create for Lendbook service
 func (s *pgService) Create(_ context.Context, p *domain.LendBook) error {
-	return s.db.Create(p).Error
+	user := domain.User{Model: domain.Model{ID: p.User_id}}
+	book := domain.Book{Model: domain.Model{ID: p.Book_id}}
+
+	if err := s.db.Find(&book).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+
+			return ErrRecordBookNotFound
+		}
+		return err
+	}
+
+	if err := s.db.Find(&user).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+
+			return ErrRecordUserNotFound
+		}
+		return err
+	}
+
+	if err := s.db.Where("book_id = ?", p.Book_id).Find(&domain.LendBook{}).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return s.db.Create(p).Error
+		}
+		return err
+	}
+	return ErrBookIsBusy
+
 }
 
-// Update implement Update for Lendbook service
+// Update implement Update for Lendbook servicep
 func (s *pgService) Update(_ context.Context, p *domain.LendBook) (*domain.LendBook, error) {
 	old := domain.LendBook{Model: domain.Model{ID: p.ID}}
 	if err := s.db.Find(&old).Error; err != nil {

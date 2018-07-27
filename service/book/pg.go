@@ -23,7 +23,10 @@ func NewPGService(db *gorm.DB) Service {
 // Create implement Create for Book service
 func (s *pgService) Create(_ context.Context, p *domain.Book) error {
 	if err := s.db.Where("id = ?", p.Category_id).Find(&domain.Category{}).Error; err != nil {
-		return ErrCategoryNotFound
+		if err == gorm.ErrRecordNotFound {
+			return ErrCategoryNotFound
+		}
+		return s.db.Create(p).Error
 	}
 	return s.db.Create(p).Error
 }

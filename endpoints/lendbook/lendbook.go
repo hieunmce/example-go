@@ -104,8 +104,8 @@ func MakeFindAllEndpoint(s service.Service) endpoint.Endpoint {
 // UpdateData data for Create
 type UpdateData struct {
 	ID      domain.UUID `json:"-"`
-	Book_id domain.UUID `json:"-"`
-	User_id domain.UUID `json:"-"`
+	Book_id domain.UUID `json:"name_id"`
+	User_id domain.UUID `json:"user_id"`
 	From    time.Time   `json:"from"`
 	To      time.Time   `json:"to"`
 }
