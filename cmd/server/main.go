@@ -57,6 +57,10 @@ func main() {
 				userSvc.NewPGService(pgDB),
 				userSvc.ValidationMiddleware(),
 			).(userSvc.Service),
+			CategoryService: service.Compose(
+				categorySvc.NewPGService(pgDB),
+				categorySvc.ValidationMiddleware(),
+			).(categorySvc.Service),
 		}
 	)
 	defer closeDB()
