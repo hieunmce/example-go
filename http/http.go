@@ -12,6 +12,7 @@ import (
 	"github.com/trantrongkim98/example-go/endpoints"
 	bookDecode "github.com/trantrongkim98/example-go/http/decode/json/book"
 	categoryDecode "github.com/trantrongkim98/example-go/http/decode/json/category"
+	lendbookDecode "github.com/trantrongkim98/example-go/http/decode/json/lendbook"
 	userDecode "github.com/trantrongkim98/example-go/http/decode/json/user"
 )
 
