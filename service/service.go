@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/trantrongkim98/example-go/service/book"
 	"github.com/trantrongkim98/example-go/service/category"
+	"github.com/trantrongkim98/example-go/service/lendbook"
 	"github.com/trantrongkim98/example-go/service/user"
 )
 
@@ -11,4 +12,5 @@ type Service struct {
 	UserService     user.Service
 	CategoryService category.Service
 	BookService     book.Service
+	LendBookService lendbook.Service
 }
