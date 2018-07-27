@@ -17,7 +17,7 @@ local-env: local-db
 	@cat .env_migrator.yaml.example > .env_migrator.yaml
 	@cat .env.example > .env
 	@echo "Waiting for database connection..."
-	@while ! docker exec example-go_db_1 pg_isready -h localhost -p 5432 > /dev/null; do \
+	@while ! docker exec examplego_db_1 pg_isready -h localhost -p 5432 > /dev/null; do \
 		sleep 1; \
 	done
 	bin/migrator up
