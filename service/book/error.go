@@ -6,10 +6,15 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound       = errNotFound{}
-	ErrUnknown        = errUnknown{}
-	ErrNameIsRequired = errNameIsRequired{}
-	ErrRecordNotFound = errRecordNotFound{}
+	ErrNotFound                    = errNotFound{}
+	ErrUnknown                     = errUnknown{}
+	ErrBookNameIsRequired          = errBookNameIsRequired{}
+	ErrBookNameLengthIsRequired    = errBookNameLengthIsRequired{}
+	ErrDescriptionIsRequired       = errDescriptionIsRequired{}
+	ErrDescriptionLengthIsRequired = errDescriptionLengthIsRequired{}
+	ErrRecordNotFound              = errRecordNotFound{}
+	ErrRecordExisted               = errRecordExisted{}
+	ErrInvalidCategory             = errInvalidCategory{}
 )
 
 type errNotFound struct{}
@@ -57,12 +62,61 @@ func (errRecordNotFound) StatusCode() int {
 	return http.StatusNotFound
 }
 
-type errNameIsRequired struct{}
+type errBookNameIsRequired struct{}
 
-func (errNameIsRequired) Error() string {
-	return "user name is required"
+func (errBookNameIsRequired) Error() string {
+	return "book name is required"
 }
 
-func (errNameIsRequired) StatusCode() int {
+func (errBookNameIsRequired) StatusCode() int {
 	return http.StatusBadRequest
+}
+
+type errBookNameLengthIsRequired struct{}
+
+func (errBookNameLengthIsRequired) Error() string {
+	return "book name must have more than 5 characters."
+}
+
+func (errBookNameLengthIsRequired) StatusCode() int {
+	return http.StatusLengthRequired
+}
+
+type errRecordExisted struct{}
+
+func (errRecordExisted) Error() string {
+	return "record already existed"
+}
+
+func (errRecordExisted) StatusCode() int {
+	return http.StatusConflict
+}
+
+type errDescriptionIsRequired struct{}
+
+func (errDescriptionIsRequired) Error() string {
+	return "book name is required"
+}
+
+func (errDescriptionIsRequired) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errDescriptionLengthIsRequired struct{}
+
+func (errDescriptionLengthIsRequired) Error() string {
+	return "book name must have more than 5 characters."
+}
+
+func (errDescriptionLengthIsRequired) StatusCode() int {
+	return http.StatusLengthRequired
+}
+
+type errInvalidCategory struct{}
+
+func (errInvalidCategory) Error() string {
+	return "invalid category"
+}
+func (errInvalidCategory) StatusCode() int {
+	return http.StatusNotFound
 }

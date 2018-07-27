@@ -21,11 +21,11 @@ func ValidationMiddleware() func(Service) Service {
 
 func (mw validationMiddleware) Create(ctx context.Context, category *domain.Category) error {
 	if category.Name == "" {
-		return ErrNameIsRequired
+		return ErrCategoryNameIsRequired
 	}
 
 	if len(category.Name) <= 5 {
-		return ErrNameLengthRequired
+		return ErrCategoryNameLengthIsRequired
 	}
 
 	return mw.Service.Create(ctx, category)
@@ -39,11 +39,11 @@ func (mw validationMiddleware) Find(ctx context.Context, category *domain.Catego
 
 func (mw validationMiddleware) Update(ctx context.Context, category *domain.Category) (*domain.Category, error) {
 	if category.Name == "" {
-		return nil, ErrNameIsRequired
+		return nil, ErrCategoryNameIsRequired
 	}
 
 	if len(category.Name) <= 5 {
-		return nil, ErrNameLengthRequired
+		return nil, ErrCategoryNameLengthIsRequired
 	}
 
 	return mw.Service.Update(ctx, category)

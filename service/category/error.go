@@ -6,12 +6,12 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound           = errNotFound{}
-	ErrUnknown            = errUnknown{}
-	ErrNameIsRequired     = errNameIsRequired{}
-	ErrNameLengthRequired = errNameIsLengthRequired{}
-	ErrRecordNotFound     = errRecordNotFound{}
-	// ErrRecordExisted      = errRecordExisted{}
+	ErrNotFound                     = errNotFound{}
+	ErrUnknown                      = errUnknown{}
+	ErrCategoryNameIsRequired       = errCategoryNameIsRequired{}
+	ErrCategoryNameLengthIsRequired = errCategoryNameLengthIsRequired{}
+	ErrRecordNotFound               = errRecordNotFound{}
+	ErrRecordExisted                = errRecordExisted{}
 )
 
 type errNotFound struct{}
@@ -41,32 +41,32 @@ func (errRecordNotFound) StatusCode() int {
 	return http.StatusNotFound
 }
 
-type errNameIsRequired struct{}
+type errCategoryNameIsRequired struct{}
 
-func (errNameIsRequired) Error() string {
+func (errCategoryNameIsRequired) Error() string {
 	return "category name is required"
 }
 
-func (errNameIsRequired) StatusCode() int {
+func (errCategoryNameIsRequired) StatusCode() int {
 	return http.StatusBadRequest
 }
 
-type errNameIsLengthRequired struct{}
+type errCategoryNameLengthIsRequired struct{}
 
-func (errNameIsLengthRequired) Error() string {
+func (errCategoryNameLengthIsRequired) Error() string {
 	return "category name must have more than 5 characters."
 }
 
-func (errNameIsLengthRequired) StatusCode() int {
+func (errCategoryNameLengthIsRequired) StatusCode() int {
 	return http.StatusLengthRequired
 }
 
-// type errRecordExisted struct{}
+type errRecordExisted struct{}
 
-// func (errRecordExisted) Error() string {
-// 	return "category existed"
-// }
+func (errRecordExisted) Error() string {
+	return "record already existed"
+}
 
-// func (errRecordExisted) StatusCode() int {
-// 	return http.StatusConflict
-// }
+func (errRecordExisted) StatusCode() int {
+	return http.StatusConflict
+}
