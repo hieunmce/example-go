@@ -1,6 +1,6 @@
 // +build unit
 
-package user
+package category
 
 import (
 	"context"
@@ -8,13 +8,13 @@ import (
 
 	"github.com/ntp13495/example-go/domain"
 	"github.com/ntp13495/example-go/service"
-	userService "github.com/ntp13495/example-go/service/user"
+	categoryService "github.com/ntp13495/example-go/service/category"
 )
 
 func TestMakeUpdateEndpoint(t *testing.T) {
 	mock := service.Service{
-		UserService: &userService.ServiceMock{
-			UpdateFunc: func(_ context.Context, p *domain.User) (*domain.User, error) {
+		CategoryService: &categoryService.ServiceMock{
+			UpdateFunc: func(_ context.Context, p *domain.Category) (*domain.Category, error) {
 				return p, nil
 			},
 		},
@@ -28,13 +28,12 @@ func TestMakeUpdateEndpoint(t *testing.T) {
 		args args
 	}{
 		{
-			name: "update user endpoint parsed success",
+			name: "update category endpoint parsed success",
 			args: args{
 				UpdateRequest{
 					UpdateData{
-						ID:    domain.MustGetUUIDFromString("415179ad-8067-4138-9b0d-41e0c68d4376"),
-						Name:  "Aliquam feugiat tellus ut neque.",
-						Email: "example@gmail.com",
+						ID:   domain.MustGetUUIDFromString("415179ad-8067-4138-9b0d-41e0c68d4376"),
+						Name: "Aliquam feugiat tellus ut neque.",
 					},
 				},
 			},
@@ -54,8 +53,8 @@ func TestMakeUpdateEndpoint(t *testing.T) {
 
 func TestMakeCreateEndpoint(t *testing.T) {
 	mock := service.Service{
-		UserService: &userService.ServiceMock{
-			CreateFunc: func(_ context.Context, p *domain.User) error {
+		CategoryService: &categoryService.ServiceMock{
+			CreateFunc: func(_ context.Context, p *domain.Category) error {
 				return nil
 			},
 		},
@@ -69,12 +68,11 @@ func TestMakeCreateEndpoint(t *testing.T) {
 		args args
 	}{
 		{
-			name: "update user endpoint parsed success",
+			name: "update category endpoint parsed success",
 			args: args{
 				CreateRequest{
 					CreateData{
-						Name:  "Aliquam feugiat tellus ut neque.",
-						Email: "example@gmail.com",
+						Name: "Aliquam feugiat tellus ut neque.",
 					},
 				},
 			},
@@ -92,10 +90,10 @@ func TestMakeCreateEndpoint(t *testing.T) {
 	}
 }
 
-func TestMakeFindUserEndPoint(t *testing.T) {
+func TestMakeFindCategoryEndPoint(t *testing.T) {
 	mock := service.Service{
-		UserService: &userService.ServiceMock{
-			FindFunc: func(_ context.Context, p *domain.User) (*domain.User, error) {
+		CategoryService: &categoryService.ServiceMock{
+			FindFunc: func(_ context.Context, p *domain.Category) (*domain.Category, error) {
 				return p, nil
 			},
 		},
@@ -108,10 +106,10 @@ func TestMakeFindUserEndPoint(t *testing.T) {
 		args args
 	}{
 		{
-			name: "find user endpoint parsed success",
+			name: "find category endpoint parsed success",
 			args: args{
 				FindRequest{
-					UserID: domain.MustGetUUIDFromString("cfa930f4-0f37-4d61-9314-5c2cb0993e44"),
+					CategoryID: domain.MustGetUUIDFromString("cfa930f4-0f37-4d61-9314-5c2cb0993e44"),
 				},
 			},
 		},
@@ -130,9 +128,9 @@ func TestMakeFindUserEndPoint(t *testing.T) {
 
 func TestMakeFindAllEndpoint(t *testing.T) {
 	mock := service.Service{
-		UserService: &userService.ServiceMock{
-			FindAllFunc: func(_ context.Context) ([]domain.User, error) {
-				return []domain.User{}, nil
+		CategoryService: &categoryService.ServiceMock{
+			FindAllFunc: func(_ context.Context) ([]domain.Category, error) {
+				return []domain.Category{}, nil
 			},
 		},
 	}
@@ -144,7 +142,7 @@ func TestMakeFindAllEndpoint(t *testing.T) {
 		args args
 	}{
 		{
-			name: "find all user endpoint parsed success",
+			name: "find all category endpoint parsed success",
 			args: args{
 				FindAllRequest{},
 			},
@@ -164,8 +162,8 @@ func TestMakeFindAllEndpoint(t *testing.T) {
 
 func TestMakeDeleteEndpoint(t *testing.T) {
 	mock := service.Service{
-		UserService: &userService.ServiceMock{
-			DeleteFunc: func(_ context.Context, p *domain.User) error {
+		CategoryService: &categoryService.ServiceMock{
+			DeleteFunc: func(_ context.Context, p *domain.Category) error {
 				return nil
 			},
 		},
@@ -179,10 +177,10 @@ func TestMakeDeleteEndpoint(t *testing.T) {
 		args args
 	}{
 		{
-			name: "delete user endpoint parsed success",
+			name: "delete category endpoint parsed success",
 			args: args{
 				DeleteRequest{
-					UserID: domain.MustGetUUIDFromString("cfa930f4-0f37-4d61-9314-5c2cb0993e44"),
+					CategoryID: domain.MustGetUUIDFromString("cfa930f4-0f37-4d61-9314-5c2cb0993e44"),
 				},
 			},
 		},

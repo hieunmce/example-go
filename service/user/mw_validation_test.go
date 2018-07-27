@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hieunmce/example-go/domain"
+	"github.com/ntp13495/example-go/domain"
 )
 
 func Test_validationMiddleware_Update(t *testing.T) {

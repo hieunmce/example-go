@@ -12,11 +12,14 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 
-	"github.com/hieunmce/example-go/config/database/pg"
-	"github.com/hieunmce/example-go/endpoints"
-	serviceHttp "github.com/hieunmce/example-go/http"
-	"github.com/hieunmce/example-go/service"
-	userSvc "github.com/hieunmce/example-go/service/user"
+	"github.com/ntp13495/example-go/config/database/pg"
+	"github.com/ntp13495/example-go/endpoints"
+	serviceHttp "github.com/ntp13495/example-go/http"
+	"github.com/ntp13495/example-go/service"
+	bookSvc "github.com/ntp13495/example-go/service/book"
+	categorySvc "github.com/ntp13495/example-go/service/category"
+	lendingbookSvc "github.com/ntp13495/example-go/service/lendingbook"
+	userSvc "github.com/ntp13495/example-go/service/user"
 )
 
 func main() {
@@ -57,6 +60,18 @@ func main() {
 				userSvc.NewPGService(pgDB),
 				userSvc.ValidationMiddleware(),
 			).(userSvc.Service),
+			CategoryService: service.Compose(
+				categorySvc.NewPGService(pgDB),
+				// categorySvc.ValidationMiddleware(), //// undone
+			).(categorySvc.Service),
+			BookService: service.Compose(
+				bookSvc.NewPGService(pgDB),
+				// bookSvc.ValidationMiddleware(),
+			).(bookSvc.Service),
+			LendingBookService: service.Compose(
+				lendingbookSvc.NewPGService(pgDB),
+				// lendingbookSvc.ValidationMiddleware(),
+			).(lendingbookSvc.Service),
 		}
 	)
 	defer closeDB()
