@@ -6,14 +6,15 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound        = errNotFound{}
-	ErrUnknown         = errUnknown{}
-	ErrNameIsRequired  = errNameIsRequired{}
-	ErrEmailIsRequired = errEmailIsRequired{}
-	ErrEmailIsInvalid  = errEmailIsInvalid{}
-	ErrRecordNotFound  = errRecordNotFound{}
-	ErrNameTooShort    = errNameTooShort{}
-	ErrRecordExisted   = errRecordExisted{}
+	ErrNotFound         = errNotFound{}
+	ErrUnknown          = errUnknown{}
+	ErrNameIsRequired   = errNameIsRequired{}
+	ErrEmailIsRequired  = errEmailIsRequired{}
+	ErrEmailIsInvalid   = errEmailIsInvalid{}
+	ErrRecordNotFound   = errRecordNotFound{}
+	ErrNameTooShort     = errNameTooShort{}
+	ErrRecordExisted    = errRecordExisted{}
+	ErrDeleteBookFailed = errDeleteBookFailed{}
 )
 
 type errNotFound struct{}
@@ -88,5 +89,15 @@ func (errRecordExisted) Error() string {
 }
 
 func (errRecordExisted) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errDeleteBookFailed struct{}
+
+func (errDeleteBookFailed) Error() string {
+	return "books could not be deleted"
+}
+
+func (errDeleteBookFailed) StatusCode() int {
 	return http.StatusBadRequest
 }

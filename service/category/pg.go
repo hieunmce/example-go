@@ -41,7 +41,7 @@ func (s *pgService) Update(_ context.Context, p *domain.Category) (*domain.Categ
 
 	if err := s.db.Find(&old).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return nil, err
+			return nil, ErrNotFound
 		}
 		return nil, err
 	}
@@ -81,12 +81,15 @@ func (s *pgService) Delete(_ context.Context, p *domain.Category) error {
 	old := domain.Category{Model: domain.Model{ID: p.ID}}
 	if err := s.db.Find(&old).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return err
+			return ErrNotFound
 		}
 		return err
 	}
 
-	s.db.Where("category_id = ?", old.ID).Delete(domain.Book{})
+	deleteBookError := s.db.Where("category_id = ?", old.ID).Delete(domain.Book{}).Error
+	if deleteBookError != nil {
+		return ErrDeleteBookFailed
+	}
 
 	return s.db.Delete(old).Error
 }

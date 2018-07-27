@@ -135,12 +135,12 @@ type DeleteRequest struct {
 	CategoryID domain.UUID
 }
 
-// DeleteResponse response struct for Find a Category
+// DeleteResponse response struct for delete a Category
 type DeleteResponse struct {
 	Status string `json:"status"`
 }
 
-// MakeDeleteEndpoint make endpoint for update a Category
+// MakeDeleteEndpoint make endpoint for delete a Category
 func MakeDeleteEndpoint(s service.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		var (
