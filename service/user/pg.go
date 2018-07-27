@@ -5,7 +5,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	"github.com/hieunmce/example-go/domain"
+	"github.com/luantranminh/example-go/domain"
 )
 
 // pgService implmenter for User serivce in postgres

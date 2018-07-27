@@ -11,7 +11,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq" // postgresql driver
 
-	"github.com/hieunmce/example-go/domain"
+	"github.com/luantranminh/example-go/domain"
 )
 
 const (
@@ -64,5 +64,8 @@ func CreateTestDatabase(t *testing.T) (*gorm.DB, string, func()) {
 func MigrateTables(db *gorm.DB) error {
 	return db.AutoMigrate(
 		domain.User{},
+		domain.Book{},
+		domain.Category{},
+		domain.Loan{},
 	).Error
 }
