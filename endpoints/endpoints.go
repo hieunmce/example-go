@@ -23,11 +23,11 @@ type Endpoints struct {
 	UpdateCategory  endpoint.Endpoint
 	DeleteCategory  endpoint.Endpoint
 
-	FindLendBook    endpoint.Endpoint
-	FindAllLendBook endpoint.Endpoint
-	CreateLendBook  endpoint.Endpoint
-	UpdateLendBook  endpoint.Endpoint
-	DeleteLendBook  endpoint.Endpoint
+	FindBook    endpoint.Endpoint
+	FindAllBook endpoint.Endpoint
+	CreateBook  endpoint.Endpoint
+	UpdateBook  endpoint.Endpoint
+	DeleteBook  endpoint.Endpoint
 }
 
 // MakeServerEndpoints returns an Endpoints struct
