@@ -1,6 +1,6 @@
 package domain
 
-//struct Book
+//Book is struct Book
 type Book struct {
 	Model
 	CategoryID  UUID   `json:"category_id"`
