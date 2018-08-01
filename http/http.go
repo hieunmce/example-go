@@ -9,8 +9,11 @@ import (
 	"github.com/go-kit/kit/log"
 	httptransport "github.com/go-kit/kit/transport/http"
 
-	"github.com/hieunmce/example-go/endpoints"
-	userDecode "github.com/hieunmce/example-go/http/decode/json/user"
+	"github.com/minhkhiemm/example-go/endpoints"
+	bookDecode "github.com/minhkhiemm/example-go/http/decode/json/book"
+	categoryDecode "github.com/minhkhiemm/example-go/http/decode/json/category"
+	lendDecode "github.com/minhkhiemm/example-go/http/decode/json/lend"
+	userDecode "github.com/minhkhiemm/example-go/http/decode/json/user"
 )
 
 // NewHTTPHandler ...
@@ -70,6 +73,103 @@ func NewHTTPHandler(endpoints endpoints.Endpoints,
 		r.Delete("/{user_id}", httptransport.NewServer(
 			endpoints.DeleteUser,
 			userDecode.DeleteRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+	})
+	r.Route("/categories", func(r chi.Router) {
+		r.Get("/", httptransport.NewServer(
+			endpoints.FindAllCategory,
+			categoryDecode.FindAllRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Get("/{category_id}", httptransport.NewServer(
+			endpoints.FindCategory,
+			categoryDecode.FindRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Post("/", httptransport.NewServer(
+			endpoints.CreateCategory,
+			categoryDecode.CreateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Put("/{category_id}", httptransport.NewServer(
+			endpoints.UpdateCategory,
+			categoryDecode.UpdateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Delete("/{category_id}", httptransport.NewServer(
+			endpoints.DeleteCategory,
+			categoryDecode.DeleteRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+	})
+	r.Route("/books", func(r chi.Router) {
+		r.Get("/", httptransport.NewServer(
+			endpoints.FindAllBook,
+			bookDecode.FindAllRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Get("/{book_id}", httptransport.NewServer(
+			endpoints.FindBook,
+			bookDecode.FindRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Post("/", httptransport.NewServer(
+			endpoints.CreateBook,
+			bookDecode.CreateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Put("/{book_id}", httptransport.NewServer(
+			endpoints.UpdateBook,
+			bookDecode.UpdateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Delete("/{book_id}", httptransport.NewServer(
+			endpoints.DeleteBook,
+			bookDecode.DeleteRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+	})
+
+	r.Route("/lends", func(r chi.Router) {
+		r.Get("/", httptransport.NewServer(
+			endpoints.FindAllLend,
+			lendDecode.FindAllRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Get("/{lend_id}", httptransport.NewServer(
+			endpoints.FindLend,
+			lendDecode.FindRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Post("/", httptransport.NewServer(
+			endpoints.CreateLend,
+			lendDecode.CreateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Put("/{lend_id}", httptransport.NewServer(
+			endpoints.UpdateLend,
+			lendDecode.UpdateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Delete("/{lend_id}", httptransport.NewServer(
+			endpoints.DeleteLend,
+			lendDecode.DeleteRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)

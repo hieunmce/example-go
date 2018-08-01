@@ -1,8 +1,16 @@
 package service
 
-import "github.com/hieunmce/example-go/service/user"
+import (
+	"github.com/minhkhiemm/example-go/service/book"
+	"github.com/minhkhiemm/example-go/service/category"
+	"github.com/minhkhiemm/example-go/service/lend"
+	"github.com/minhkhiemm/example-go/service/user"
+)
 
 // Service define list of all services in projects
 type Service struct {
-	UserService user.Service
+	UserService     user.Service
+	CategoryService category.Service
+	BookService     book.Service
+	LendService     lend.Service
 }
