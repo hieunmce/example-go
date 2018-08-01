@@ -9,8 +9,8 @@ import (
 	"github.com/go-kit/kit/log"
 	httptransport "github.com/go-kit/kit/transport/http"
 
-	"github.com/hieunmce/example-go/endpoints"
-	userDecode "github.com/hieunmce/example-go/http/decode/json/user"
+	"github.com/phungvandat/example-go/endpoints"
+	userDecode "github.com/phungvandat/example-go/http/decode/json/user"
 )
 
 // NewHTTPHandler ...
