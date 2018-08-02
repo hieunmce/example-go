@@ -30,6 +30,7 @@ func (mw validationMiddleware) Create(ctx context.Context, book *domain.Book) (e
 		return ErrDescriptionIsRequired
 	}
 
+
 	return mw.Service.Create(ctx, book)
 }
 func (mw validationMiddleware) FindAll(ctx context.Context) ([]domain.Book, error) {
@@ -40,6 +41,7 @@ func (mw validationMiddleware) Find(ctx context.Context, book *domain.Book) (*do
 }
 
 func (mw validationMiddleware) Update(ctx context.Context, book *domain.Book) (*domain.Book, error) {
+
 	if book.Name == "" || len(book.Name) <= 5 {
 		return nil, ErrNameIsRequired
 	}

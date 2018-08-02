@@ -30,12 +30,14 @@ func (s *pgService) Create(_ context.Context, p *domain.Book) error {
 		return err
 	}
 
+
 	return s.db.Create(p).Error
 }
 
 // Update implement Update for Book service
 func (s *pgService) Update(_ context.Context, p *domain.Book) (*domain.Book, error) {
 	old := domain.Book{Model: domain.Model{ID: p.ID}}
+
 
 	if err := s.db.Find(&old).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
