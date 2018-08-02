@@ -2,9 +2,9 @@ package endpoints
 
 import (
 	"github.com/go-kit/kit/endpoint"
-	"github.com/hieunmce/example-go/service"
+	"github.com/luquehuong/example-go/service"
 
-	"github.com/hieunmce/example-go/endpoints/user"
+	"github.com/luquehuong/example-go/endpoints/user"
 )
 
 // Endpoints .

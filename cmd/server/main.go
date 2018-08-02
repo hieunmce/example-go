@@ -12,11 +12,11 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 
-	"github.com/hieunmce/example-go/config/database/pg"
-	"github.com/hieunmce/example-go/endpoints"
-	serviceHttp "github.com/hieunmce/example-go/http"
-	"github.com/hieunmce/example-go/service"
-	userSvc "github.com/hieunmce/example-go/service/user"
+	"github.com/luquehuong/example-go/config/database/pg"
+	"github.com/luquehuong/example-go/endpoints"
+	serviceHttp "github.com/luquehuong/example-go/http"
+	"github.com/luquehuong/example-go/service"
+	userSvc "github.com/luquehuong/example-go/service/user"
 )
 
 func main() {
