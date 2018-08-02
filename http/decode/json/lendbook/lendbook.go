@@ -1,4 +1,4 @@
-package user
+package lendbook
 
 import (
 	"context"
@@ -8,53 +8,53 @@ import (
 	"github.com/go-chi/chi"
 
 	"github.com/neverdiefc/example-go/domain"
-	userEndpoint "github.com/neverdiefc/example-go/endpoints/user"
+	lendbookEndpoint "github.com/neverdiefc/example-go/endpoints/lendbook"
 )
 
 // FindRequest .
 func FindRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	userID, err := domain.UUIDFromString(chi.URLParam(r, "user_id"))
+	lendbookID, err := domain.UUIDFromString(chi.URLParam(r, "lendbook_id"))
 	if err != nil {
 		return nil, err
 	}
-	return userEndpoint.FindRequest{UserID: userID}, nil
+	return lendbookEndpoint.FindRequest{LendbookID: lendbookID}, nil
 }
 
 // FindAllRequest .
 func FindAllRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	return userEndpoint.FindAllRequest{}, nil
+	return lendbookEndpoint.FindAllRequest{}, nil
 }
 
 // CreateRequest .
 func CreateRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	var req userEndpoint.CreateRequest
+	var req lendbookEndpoint.CreateRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	return req, err
 }
 
 // UpdateRequest .
 func UpdateRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	userID, err := domain.UUIDFromString(chi.URLParam(r, "user_id"))
+	lendbookID, err := domain.UUIDFromString(chi.URLParam(r, "lendbook_id"))
 	if err != nil {
 		return nil, err
 	}
 
-	var req userEndpoint.UpdateRequest
+	var req lendbookEndpoint.UpdateRequest
 	err = json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
 		return nil, err
 	}
 
-	req.User.ID = userID
+	req.Lendbook.ID = lendbookID
 
 	return req, nil
 }
 
 // DeleteRequest .
 func DeleteRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	userID, err := domain.UUIDFromString(chi.URLParam(r, "user_id"))
+	lendbookID, err := domain.UUIDFromString(chi.URLParam(r, "lendbook_id"))
 	if err != nil {
 		return nil, err
 	}
-	return userEndpoint.DeleteRequest{UserID: userID}, nil
+	return lendbookEndpoint.DeleteRequest{LendbookID: lendbookID}, nil
 }
