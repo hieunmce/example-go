@@ -2,7 +2,6 @@ package endpoints
 
 import (
 	"github.com/go-kit/kit/endpoint"
-	"github.com/mattn/example-go/endpoints/book"
 	"github.com/neverdiefc/example-go/service"
 
 	"github.com/neverdiefc/example-go/endpoints/book"
