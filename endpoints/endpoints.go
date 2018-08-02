@@ -6,6 +6,7 @@ import (
 
 	"github.com/neverdiefc/example-go/endpoints/book"
 	"github.com/neverdiefc/example-go/endpoints/category"
+	"github.com/neverdiefc/example-go/endpoints/lendbook"
 	"github.com/neverdiefc/example-go/endpoints/user"
 )
 
@@ -28,6 +29,12 @@ type Endpoints struct {
 	CreateBook  endpoint.Endpoint
 	UpdateBook  endpoint.Endpoint
 	DeleteBook  endpoint.Endpoint
+
+	FindLendbook    endpoint.Endpoint
+	FindAllLendbook endpoint.Endpoint
+	CreateLendbook  endpoint.Endpoint
+	UpdateLendbook  endpoint.Endpoint
+	DeleteLendbook  endpoint.Endpoint
 }
 
 // MakeServerEndpoints returns an Endpoints struct
@@ -50,5 +57,11 @@ func MakeServerEndpoints(s service.Service) Endpoints {
 		CreateBook:  book.MakeCreateEndpoint(s),
 		UpdateBook:  book.MakeUpdateEndpoint(s),
 		DeleteBook:  book.MakeDeleteEndpoint(s),
+
+		FindLendbook:    lendbook.MakeFindEndPoint(s),
+		FindAllLendbook: lendbook.MakeFindAllEndpoint(s),
+		CreateLendbook:  lendbook.MakeCreateEndpoint(s),
+		UpdateLendbook:  lendbook.MakeUpdateEndpoint(s),
+		DeleteLendbook:  lendbook.MakeDeleteEndpoint(s),
 	}
 }
