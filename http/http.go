@@ -78,31 +78,31 @@ func NewHTTPHandler(endpoints endpoints.Endpoints,
 
 	r.Route("/categories", func(r chi.Router) {
 		r.Get("/", httptransport.NewServer(
-			endpoints.FindAllUser,
+			endpoints.FindAllCategory,
 			categoryDecode.FindAllRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)
 		r.Get("/{category_id}", httptransport.NewServer(
-			endpoints.FindUser,
+			endpoints.FindCategory,
 			categoryDecode.FindRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)
 		r.Post("/", httptransport.NewServer(
-			endpoints.CreateUser,
+			endpoints.CreateCategory,
 			categoryDecode.CreateRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)
 		r.Put("/{category_id}", httptransport.NewServer(
-			endpoints.UpdateUser,
+			endpoints.UpdateCategory,
 			categoryDecode.UpdateRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)
 		r.Delete("/{category_id}", httptransport.NewServer(
-			endpoints.DeleteUser,
+			endpoints.DeleteCategory,
 			categoryDecode.DeleteRequest,
 			encodeResponse,
 			options...,
