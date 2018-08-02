@@ -9,8 +9,8 @@ import (
 	"github.com/pressly/goose"
 
 	// Init DB drivers.
-	"github.com/hieunmce/example-go/cmd/migrator/config"
-	dbconn "github.com/hieunmce/example-go/cmd/migrator/db"
+	"github.com/neverdiefc/example-go/cmd/migrator/config"
+	dbconn "github.com/neverdiefc/example-go/cmd/migrator/db"
 )
 
 var (

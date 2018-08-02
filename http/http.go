@@ -9,8 +9,10 @@ import (
 	"github.com/go-kit/kit/log"
 	httptransport "github.com/go-kit/kit/transport/http"
 
-	"github.com/hieunmce/example-go/endpoints"
-	userDecode "github.com/hieunmce/example-go/http/decode/json/user"
+	"github.com/neverdiefc/example-go/endpoints"
+	bookDecode "github.com/neverdiefc/example-go/http/decode/json/book"
+	categoryDecode "github.com/neverdiefc/example-go/http/decode/json/category"
+	userDecode "github.com/neverdiefc/example-go/http/decode/json/user"
 )
 
 // NewHTTPHandler ...
@@ -75,5 +77,70 @@ func NewHTTPHandler(endpoints endpoints.Endpoints,
 		).ServeHTTP)
 	})
 
+	r.Route("/categories", func(r chi.Router) {
+		r.Get("/", httptransport.NewServer(
+			endpoints.FindAllCategory,
+			categoryDecode.FindAllRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Get("/{category_id}", httptransport.NewServer(
+			endpoints.FindCategory,
+			categoryDecode.FindRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Post("/", httptransport.NewServer(
+			endpoints.CreateCategory,
+			categoryDecode.CreateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Put("/{category_id}", httptransport.NewServer(
+			endpoints.UpdateCategory,
+			categoryDecode.UpdateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Delete("/{category_id}", httptransport.NewServer(
+			endpoints.DeleteCategory,
+			categoryDecode.DeleteRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+	})
+
+	r.Route("/books", func(r chi.Router) {
+		r.Get("/", httptransport.NewServer(
+			endpoints.FindAllBook,
+			bookDecode.FindAllRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Get("/{book_id}", httptransport.NewServer(
+			endpoints.FindBook,
+			bookDecode.FindRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Post("/", httptransport.NewServer(
+			endpoints.CreateBook,
+			bookDecode.CreateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Put("/{book_id}", httptransport.NewServer(
+			endpoints.UpdateBook,
+			bookDecode.UpdateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Delete("/{book_id}", httptransport.NewServer(
+			endpoints.DeleteBook,
+			bookDecode.DeleteRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+	})
 	return r
 }
