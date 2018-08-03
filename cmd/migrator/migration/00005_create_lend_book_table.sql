@@ -1,7 +1,7 @@
 -- +goose Up
 -- SQL in this section is executed when the migration is applied.
 
-CREATE TABLE "public"."user_lend_books" (
+CREATE TABLE "public"."lend_books" (
   "id" uuid NOT NULL,
   "created_at" timestamptz DEFAULT now(),
   "deleted_at" timestamptz,
@@ -17,4 +17,4 @@ CREATE TABLE "public"."user_lend_books" (
 
 -- +goose Down
 -- SQL in this section is executed when the migration is rolled back.
-DROP TABLE "public"."user_lend_books";
+DROP TABLE "public"."lend_books";
