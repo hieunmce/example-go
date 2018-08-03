@@ -47,6 +47,10 @@ func (mw validationMiddleware) Update(ctx context.Context, category *domain.Cate
 		return nil, ErrNameIsRequired
 	}
 
+	if len(category.Name) <= 5 {
+		return nil, ErrNameIsToShort
+	}
+
 	return mw.Service.Update(ctx, category)
 }
 func (mw validationMiddleware) Delete(ctx context.Context, category *domain.Category) error {
