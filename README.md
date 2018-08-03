@@ -41,33 +41,33 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] validate email of user is not empty.
   * [x] validate email of user is a valid email.
   
-* [ ] API must be able to CRUD category of books:
-  * [ ] Each category should have the following fields:
+* [X] API must be able to CRUD category of books:
+  * [X] Each category should have the following fields:
     * id (uuid)
     * name (string)
-  * [ ] API must be able to get detail of a category.
-  * [ ] API must be able to get list of categories.
-  * [ ] API must be able to create a category.
-  * [ ] API must be able to update a category.
-  * [ ] API must be able to delete a category.
-  * [ ] when delete categories all book belongs to that categories should deleted too.
+  * [X] API must be able to get detail of a category.
+  * [X] API must be able to get list of categories.
+  * [X] API must be able to create a category.
+  * [X] API must be able to update a category.
+  * [X] API must be able to delete a category.
+  * [X] when delete categories all book belongs to that categories should deleted too.
   
 * [ ] Validate category is correct before (Create/Update):
   * [ ] validate name of category is not empty and length > 5 characters.
   * [ ] validate name of category not existed yet (for both create and update).
 
-* [ ] API must be able to CRUD books:
-  * [ ] Each book should have the following fields:
+* [X] API must be able to CRUD books:
+  * [X] Each book should have the following fields:
     * id (uuid)
     * name (string)
     * category_id (uuid)
     * author (string)
     * description (string)
-  * [ ] API must be able to get detail of a book.
-  * [ ] API must be able to get list of books.
-  * [ ] API must be able to create a book.
-  * [ ] API must be able to update a book.
-  * [ ] API must be able to delete a book.
+  * [X] API must be able to get detail of a book.
+  * [X] API must be able to get list of books.
+  * [X] API must be able to create a book.
+  * [X] API must be able to update a book.
+  * [X] API must be able to delete a book.
   
 * [ ] Validate books is correct before (Create/Update):
   * [ ] validate category of a book is exist, if not reject it with error message
