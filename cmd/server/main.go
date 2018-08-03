@@ -16,6 +16,7 @@ import (
 	"github.com/luquehuong/example-go/endpoints"
 	serviceHttp "github.com/luquehuong/example-go/http"
 	"github.com/luquehuong/example-go/service"
+	categorySvc "github.com/luquehuong/example-go/service/category"
 	userSvc "github.com/luquehuong/example-go/service/user"
 )
 
@@ -57,6 +58,11 @@ func main() {
 				userSvc.NewPGService(pgDB),
 				userSvc.ValidationMiddleware(),
 			).(userSvc.Service),
+
+			CategoryService: service.Compose(
+				categorySvc.NewPGService(pgDB),
+				// categorySvc.ValidationMiddleware(),
+			).(categorySvc.Service),
 		}
 	)
 	defer closeDB()
