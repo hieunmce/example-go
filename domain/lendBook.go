@@ -5,7 +5,7 @@ import (
 )
 
 // User describe user in systenm
-type UserLendBook struct {
+type LendBook struct {
 	Model
 	Book_id UUID      `json:"book_id"`
 	User_id UUID      `json:"user_id"`
