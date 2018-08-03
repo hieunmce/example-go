@@ -36,6 +36,9 @@ func (s *pgService) Update(_ context.Context, p *domain.Book) (*domain.Book, err
 	}
 
 	old.Name = p.Name
+	old.Category_id = p.Category_id
+	old.Author = p.Author
+	old.Description = p.Description
 
 	return &old, s.db.Save(&old).Error
 }
