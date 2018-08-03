@@ -2,6 +2,7 @@ package book
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/go-kit/kit/endpoint"
@@ -12,7 +13,10 @@ import (
 
 // CreateData data for CreateUser
 type CreateData struct {
-	Name string `json:"name"`
+	Name        string      `json:"name"`
+	Category_id domain.UUID `json:"category_id"`
+	Author      string      `json:"author"`
+	Description string      `json:"description"`
 }
 
 // CreateRequest request struct for CreateUser
@@ -36,7 +40,10 @@ func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 		var (
 			req  = request.(CreateRequest)
 			book = &domain.Book{
-				Name: req.Book.Name,
+				Name:        req.Book.Name,
+				Category_id: req.Book.Category_id,
+				Author:      req.Book.Author,
+				Description: req.Book.Description,
 			}
 		)
 
@@ -96,8 +103,11 @@ func MakeFindAllEndpoint(s service.Service) endpoint.Endpoint {
 
 // UpdateData data for Create
 type UpdateData struct {
-	ID   domain.UUID `json:"-"`
-	Name string      `json:"name"`
+	ID          domain.UUID `json:"-"`
+	Name        string      `json:"name"`
+	Category_id domain.UUID `json:"category_id"`
+	Author      string      `json:"author"`
+	Description string      `json:"description"`
 }
 
 // UpdateRequest request struct for update
@@ -112,12 +122,16 @@ type UpdateResponse struct {
 
 // MakeUpdateEndpoint make endpoint for update a Book
 func MakeUpdateEndpoint(s service.Service) endpoint.Endpoint {
+	fmt.Println("description change")
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		var (
 			req  = request.(UpdateRequest)
 			book = domain.Book{
-				Model: domain.Model{ID: req.Book.ID},
-				Name:  req.Book.Name,
+				Model:       domain.Model{ID: req.Book.ID},
+				Name:        req.Book.Name,
+				Category_id: req.Book.Category_id,
+				Author:      req.Book.Author,
+				Description: req.Book.Description,
 			}
 		)
 
