@@ -18,6 +18,7 @@ import (
 	"github.com/luquehuong/example-go/service"
 	bookSvc "github.com/luquehuong/example-go/service/book"
 	categorySvc "github.com/luquehuong/example-go/service/category"
+	lendBookSvc "github.com/luquehuong/example-go/service/lendBook"
 	userSvc "github.com/luquehuong/example-go/service/user"
 )
 
@@ -62,13 +63,18 @@ func main() {
 
 			CategoryService: service.Compose(
 				categorySvc.NewPGService(pgDB),
-				categorySvc.ValidationMiddleware(),
+				// categorySvc.ValidationMiddleware(),
 			).(categorySvc.Service),
 
 			BookService: service.Compose(
 				bookSvc.NewPGService(pgDB),
 				// bookSvc.ValidationMiddleware(),
 			).(bookSvc.Service),
+
+			LendBookService: service.Compose(
+				lendBookSvc.NewPGService(pgDB),
+				// bookSvc.ValidationMiddleware(),
+			).(lendBookSvc.Service),
 		}
 	)
 	defer closeDB()
