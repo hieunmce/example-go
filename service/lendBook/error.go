@@ -1,4 +1,4 @@
-package category
+package lendBook
 
 import (
 	"net/http"
@@ -11,7 +11,6 @@ var (
 	ErrNameIsRequired = errNameIsRequired{}
 	ErrRecordNotFound = errRecordNotFound{}
 	ErrNameIsToShort  = errNameIsToShort{}
-	ErrNameIsExisted  = errNameIsExisted{}
 )
 
 type errNotFound struct{}
@@ -58,15 +57,5 @@ func (errNameIsToShort) Error() string {
 }
 
 func (errNameIsToShort) StatusCode() int {
-	return http.StatusBadRequest
-}
-
-type errNameIsExisted struct{}
-
-func (errNameIsExisted) Error() string {
-	return "name is already existed"
-}
-
-func (errNameIsExisted) StatusCode() int {
 	return http.StatusBadRequest
 }
