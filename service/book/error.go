@@ -12,6 +12,7 @@ var (
 	ErrRecordNotFound       = errRecordNotFound{}
 	ErrNameIsToShort        = errNameIsToShort{}
 	ErrDescriptionIsToShort = errDescriptionIsToShort{}
+	ErrCategoryIDNotFound   = errCategoryIDNotFound{}
 )
 
 type errNotFound struct{}
@@ -68,5 +69,15 @@ func (errDescriptionIsToShort) Error() string {
 }
 
 func (errDescriptionIsToShort) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errCategoryIDNotFound struct{}
+
+func (errCategoryIDNotFound) Error() string {
+	return "category of a book is not exist, try to create category before you create the book"
+}
+
+func (errCategoryIDNotFound) StatusCode() int {
 	return http.StatusBadRequest
 }

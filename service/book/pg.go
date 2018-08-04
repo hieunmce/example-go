@@ -27,10 +27,19 @@ func (s *pgService) Create(_ context.Context, p *domain.Book) error {
 
 // Update implement Update for Book service
 func (s *pgService) Update(_ context.Context, p *domain.Book) (*domain.Book, error) {
+
 	old := domain.Book{Model: domain.Model{ID: p.ID}}
 	if err := s.db.Find(&old).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, ErrNotFound
+		}
+		return nil, err
+	}
+
+	categoryID := domain.Category{Model: domain.Model{ID: p.Category_id}}
+	if err := s.db.Find(&categoryID).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, ErrCategoryIDNotFound
 		}
 		return nil, err
 	}
