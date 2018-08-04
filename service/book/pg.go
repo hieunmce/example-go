@@ -22,6 +22,17 @@ func NewPGService(db *gorm.DB) Service {
 
 // Create implement Create for Book service
 func (s *pgService) Create(_ context.Context, p *domain.Book) error {
+
+	// Validate category of a book is exist, if not reject it with error message
+	categoryID := domain.Category{Model: domain.Model{ID: p.Category_id}}
+	if err := s.db.Find(&categoryID).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return ErrCategoryIDNotFound
+		}
+		return err
+	}
+
+	// If pass validate, create a new book
 	return s.db.Create(p).Error
 }
 
@@ -36,6 +47,7 @@ func (s *pgService) Update(_ context.Context, p *domain.Book) (*domain.Book, err
 		return nil, err
 	}
 
+	// Validate category of a book is exist, if not reject it with error message
 	categoryID := domain.Category{Model: domain.Model{ID: p.Category_id}}
 	if err := s.db.Find(&categoryID).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -44,6 +56,7 @@ func (s *pgService) Update(_ context.Context, p *domain.Book) (*domain.Book, err
 		return nil, err
 	}
 
+	// If pass validate, update book
 	old.Name = p.Name
 	old.Category_id = p.Category_id
 	old.Author = p.Author
