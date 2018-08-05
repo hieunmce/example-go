@@ -30,16 +30,16 @@ func (mw validationMiddleware) Create(ctx context.Context, book *domain.Book) (e
 	if book.Name == "" {
 		return ErrNameIsRequired
 	}
-	if len(book.Description) <= 5 {
+	if len(book.Name) <= 5 {
 		return ErrNameIsToShort
 	}
 
 	// Validate description of a book is not empty and length > 5 characters. if not reject it with error message
 	if book.Description == "" {
-		return ErrNameIsRequired
+		return ErrDescriptionIsRequired
 	}
 	if len(book.Description) <= 5 {
-		return ErrNameIsToShort
+		return ErrDescriptionIsToShort
 	}
 
 	// If pass validate, accept create new book.
@@ -57,16 +57,16 @@ func (mw validationMiddleware) Update(ctx context.Context, book *domain.Book) (*
 	if book.Name == "" {
 		return nil, ErrNameIsRequired
 	}
-	if len(book.Description) <= 5 {
+	if len(book.Name) <= 5 {
 		return nil, ErrNameIsToShort
 	}
 
 	// Validate description of a book is not empty and length > 5 characters. if not reject it with error message
 	if book.Description == "" {
-		return nil, ErrNameIsRequired
+		return nil, ErrDescriptionIsRequired
 	}
 	if len(book.Description) <= 5 {
-		return nil, ErrNameIsToShort
+		return nil, ErrDescriptionIsToShort
 	}
 
 	// If pass validate, accept update the book.

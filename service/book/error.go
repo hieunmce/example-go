@@ -6,21 +6,14 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound             = errNotFound{}
-	ErrUnknown              = errUnknown{}
-	ErrNameIsRequired       = errNameIsRequired{}
-	ErrRecordNotFound       = errRecordNotFound{}
-	ErrNameIsToShort        = errNameIsToShort{}
-	ErrDescriptionIsToShort = errDescriptionIsToShort{}
-	ErrCategoryIDNotFound   = errCategoryIDNotFound{}
-
-	ErrNotFound       = errNotFound{}
-	ErrUnknown        = errUnknown{}
-	ErrNameIsRequired = errNameIsRequired{}
-	ErrRecordNotFound = errRecordNotFound{}
-  ErrNameIsToShort        = errNameIsToShort{}
-	ErrDescriptionIsToShort = errDescriptionIsToShort{}
-	ErrCategoryIDNotFound   = errCategoryIDNotFound{}
+	ErrNotFound              = errNotFound{}
+	ErrUnknown               = errUnknown{}
+	ErrNameIsRequired        = errNameIsRequired{}
+	ErrRecordNotFound        = errRecordNotFound{}
+	ErrNameIsToShort         = errNameIsToShort{}
+	ErrDescriptionIsToShort  = errDescriptionIsToShort{}
+	ErrCategoryIDNotFound    = errCategoryIDNotFound{}
+	ErrDescriptionIsRequired = errDescriptionIsRequired{}
 )
 
 type errNotFound struct{}
@@ -72,35 +65,6 @@ func (errNameIsToShort) StatusCode() int {
 
 type errDescriptionIsToShort struct{}
 
-func (errRecordNotFound) Error() string {
-	return "client record not found"
-}
-func (errRecordNotFound) StatusCode() int {
-	return http.StatusNotFound
-}
-
-type errNameIsRequired struct{}
-
-func (errNameIsRequired) Error() string {
-	return "user name is required"
-}
-
-func (errNameIsRequired) StatusCode() int {
-	return http.StatusBadRequest
-}
-
-type errNameIsToShort struct{}
-
-func (errNameIsToShort) Error() string {
-	return "name must longer than 5 characters"
-}
-
-func (errNameIsToShort) StatusCode() int {
-	return http.StatusBadRequest
-}
-
-type errDescriptionIsToShort struct{}
-
 func (errDescriptionIsToShort) Error() string {
 	return "description must longer than 5 characters"
 }
@@ -116,5 +80,15 @@ func (errCategoryIDNotFound) Error() string {
 }
 
 func (errCategoryIDNotFound) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errDescriptionIsRequired struct{}
+
+func (errDescriptionIsRequired) Error() string {
+	return "description name is required"
+}
+
+func (errDescriptionIsRequired) StatusCode() int {
 	return http.StatusBadRequest
 }

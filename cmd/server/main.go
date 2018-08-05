@@ -63,17 +63,17 @@ func main() {
 
 			CategoryService: service.Compose(
 				categorySvc.NewPGService(pgDB),
-				// categorySvc.ValidationMiddleware(),
+				categorySvc.ValidationMiddleware(),
 			).(categorySvc.Service),
 
 			BookService: service.Compose(
 				bookSvc.NewPGService(pgDB),
-				// bookSvc.ValidationMiddleware(),
+				bookSvc.ValidationMiddleware(),
 			).(bookSvc.Service),
 
 			LendBookService: service.Compose(
 				lendBookSvc.NewPGService(pgDB),
-				// bookSvc.ValidationMiddleware(),
+				//bookSvc.ValidationMiddleware(),
 			).(lendBookSvc.Service),
 		}
 	)

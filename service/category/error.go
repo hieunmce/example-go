@@ -44,7 +44,7 @@ func (errRecordNotFound) StatusCode() int {
 type errNameIsRequired struct{}
 
 func (errNameIsRequired) Error() string {
-	return "user name is required"
+	return "name is required"
 }
 
 func (errNameIsRequired) StatusCode() int {
