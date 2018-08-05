@@ -6,13 +6,14 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound             = errNotFound{}
-	ErrUnknown              = errUnknown{}
-	ErrNameIsRequired       = errNameIsRequired{}
-	ErrRecordNotFound       = errRecordNotFound{}
-	ErrNameIsToShort        = errNameIsToShort{}
-	ErrDescriptionIsToShort = errDescriptionIsToShort{}
-	ErrCategoryIDNotFound   = errCategoryIDNotFound{}
+	ErrNotFound              = errNotFound{}
+	ErrUnknown               = errUnknown{}
+	ErrNameIsRequired        = errNameIsRequired{}
+	ErrRecordNotFound        = errRecordNotFound{}
+	ErrNameIsToShort         = errNameIsToShort{}
+	ErrDescriptionIsToShort  = errDescriptionIsToShort{}
+	ErrCategoryIDNotFound    = errCategoryIDNotFound{}
+	ErrDescriptionIsRequired = errDescriptionIsRequired{}
 )
 
 type errNotFound struct{}
@@ -79,5 +80,15 @@ func (errCategoryIDNotFound) Error() string {
 }
 
 func (errCategoryIDNotFound) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errDescriptionIsRequired struct{}
+
+func (errDescriptionIsRequired) Error() string {
+	return "description name is required"
+}
+
+func (errDescriptionIsRequired) StatusCode() int {
 	return http.StatusBadRequest
 }

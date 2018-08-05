@@ -12,6 +12,7 @@ import (
 	"github.com/luquehuong/example-go/endpoints"
 	bookDecode "github.com/luquehuong/example-go/http/decode/json/book"
 	categoryDecode "github.com/luquehuong/example-go/http/decode/json/category"
+	lendBookDecode "github.com/luquehuong/example-go/http/decode/json/lendBook"
 	userDecode "github.com/luquehuong/example-go/http/decode/json/user"
 )
 
@@ -138,6 +139,39 @@ func NewHTTPHandler(endpoints endpoints.Endpoints,
 		r.Delete("/{book_id}", httptransport.NewServer(
 			endpoints.DeleteBook,
 			bookDecode.DeleteRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+	})
+
+	r.Route("/lendBooks", func(r chi.Router) {
+		r.Get("/", httptransport.NewServer(
+			endpoints.FindAllLendBook,
+			lendBookDecode.FindAllRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Get("/{lendBook_id}", httptransport.NewServer(
+			endpoints.FindLendBook,
+			lendBookDecode.FindRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Post("/", httptransport.NewServer(
+			endpoints.CreateLendBook,
+			lendBookDecode.CreateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Put("/{lendBook_id}", httptransport.NewServer(
+			endpoints.UpdateLendBook,
+			lendBookDecode.UpdateRequest,
+			encodeResponse,
+			options...,
+		).ServeHTTP)
+		r.Delete("/{lendBook_id}", httptransport.NewServer(
+			endpoints.DeleteLendBook,
+			lendBookDecode.DeleteRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)
