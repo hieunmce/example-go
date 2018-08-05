@@ -8,9 +8,9 @@ import (
 var (
 	ErrNotFound       = errNotFound{}
 	ErrUnknown        = errUnknown{}
-	ErrNameIsRequired = errNameIsRequired{}
 	ErrRecordNotFound = errRecordNotFound{}
-	ErrNameIsToShort  = errNameIsToShort{}
+	ErrBookIDNotFound = errBookIDNotFound{}
+	ErrUserIDNotFound = errUserIDNotFound{}
 )
 
 type errNotFound struct{}
@@ -58,4 +58,22 @@ func (errNameIsToShort) Error() string {
 
 func (errNameIsToShort) StatusCode() int {
 	return http.StatusBadRequest
+}
+
+type errBookIDNotFound struct{}
+
+func (errBookIDNotFound) Error() string {
+	return "Book_id not found"
+}
+func (errBookIDNotFound) StatusCode() int {
+	return http.StatusNotFound
+}
+
+type errUserIDNotFound struct{}
+
+func (errUserIDNotFound) Error() string {
+	return "User_id not found"
+}
+func (errUserIDNotFound) StatusCode() int {
+	return http.StatusNotFound
 }
