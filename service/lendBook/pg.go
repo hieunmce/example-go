@@ -22,6 +22,26 @@ func NewPGService(db *gorm.DB) Service {
 
 // Create implement Create for UserLendBook service
 func (s *pgService) Create(_ context.Context, p *domain.LendBook) error {
+
+	// Validate book_id is exist, if not reject it with error message
+	bookID := domain.Book{Model: domain.Model{ID: p.Book_id}}
+	if err := s.db.Find(&bookID).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return ErrBookIDNotFound
+		}
+		return err
+	}
+
+	// Validate user_id is exist, if not reject it with error message
+	userID := domain.User{Model: domain.Model{ID: p.User_id}}
+	if err := s.db.Find(&userID).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return ErrUserIDNotFound
+		}
+		return err
+	}
+
+	// If pass validate, create a new user-lend-book
 	return s.db.Create(p).Error
 }
 
