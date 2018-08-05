@@ -6,7 +6,7 @@ CREATE TABLE "public"."books" (
   "created_at" timestamptz DEFAULT now(),
   "deleted_at" timestamptz,
   "name" text,
-  "category_id" uuid NOT NULL,
+  "category_id" uuid,
   "author" text,
   "description" text,
   CONSTRAINT "books_pkey" PRIMARY KEY ("id"),
