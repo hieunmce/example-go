@@ -1,7 +1,9 @@
-package book
+package lendBook
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"github.com/luquehuong/example-go/domain"
 )
@@ -24,54 +26,33 @@ func ValidationMiddleware() func(Service) Service {
 	}
 }
 
-func (mw validationMiddleware) Create(ctx context.Context, book *domain.Book) (err error) {
+func (mw validationMiddleware) Create(ctx context.Context, lendBook *domain.LendBook) (err error) {
 
-	// Validate name of a book is not empty and length > 5 characters. if not reject it with error message
-	if book.Name == "" {
-		return ErrNameIsRequired
-	}
-	if len(book.Name) <= 5 {
-		return ErrNameIsToShort
-	}
+	//validate books is available to lend, if not available reject with error message
+	now := time.Now()
+	timeReturn := lendBook.To
 
-	// Validate description of a book is not empty and length > 5 characters. if not reject it with error message
-	if book.Description == "" {
-		return ErrDescriptionIsRequired
-	}
-	if len(book.Description) <= 5 {
-		return ErrDescriptionIsToShort
+	if now.Before(timeReturn) {
+		fmt.Println("from,", now)
+		fmt.Println("to", timeReturn)
+		return ErrBookIsNotAvailable
 	}
 
-	// If pass validate, accept create new book.
-	return mw.Service.Create(ctx, book)
+	// If pass validate, accept create new lendBook.
+	return mw.Service.Create(ctx, lendBook)
 }
-func (mw validationMiddleware) FindAll(ctx context.Context) ([]domain.Book, error) {
+func (mw validationMiddleware) FindAll(ctx context.Context) ([]domain.LendBook, error) {
 	return mw.Service.FindAll(ctx)
 }
-func (mw validationMiddleware) Find(ctx context.Context, book *domain.Book) (*domain.Book, error) {
-	return mw.Service.Find(ctx, book)
+func (mw validationMiddleware) Find(ctx context.Context, lendBook *domain.LendBook) (*domain.LendBook, error) {
+	return mw.Service.Find(ctx, lendBook)
 }
 
-func (mw validationMiddleware) Update(ctx context.Context, book *domain.Book) (*domain.Book, error) {
-	// Validate name of a book is not empty and length > 5 characters. if not reject it with error message
-	if book.Name == "" {
-		return nil, ErrNameIsRequired
-	}
-	if len(book.Name) <= 5 {
-		return nil, ErrNameIsToShort
-	}
+func (mw validationMiddleware) Update(ctx context.Context, lendBook *domain.LendBook) (*domain.LendBook, error) {
 
-	// Validate description of a book is not empty and length > 5 characters. if not reject it with error message
-	if book.Description == "" {
-		return nil, ErrDescriptionIsRequired
-	}
-	if len(book.Description) <= 5 {
-		return nil, ErrDescriptionIsToShort
-	}
-
-	// If pass validate, accept update the book.
-	return mw.Service.Update(ctx, book)
+	// If pass validate, accept update the lendBook.
+	return mw.Service.Update(ctx, lendBook)
 }
-func (mw validationMiddleware) Delete(ctx context.Context, book *domain.Book) error {
-	return mw.Service.Delete(ctx, book)
+func (mw validationMiddleware) Delete(ctx context.Context, lendBook *domain.LendBook) error {
+	return mw.Service.Delete(ctx, lendBook)
 }
