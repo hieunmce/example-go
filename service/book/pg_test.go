@@ -25,7 +25,8 @@ func Test_pgService_Create(t *testing.T) {
 		t.Fatalf("Failed to create dummy table category by error %v", err)
 	}
 
-	
+	fakeCategoryID := domain.MustGetUUIDFromString("1698bbd6-e0c8-4957-a5a9-8c536970994b")
+
 	type args struct {
 		p *domain.Book
 	}
@@ -35,11 +36,25 @@ func Test_pgService_Create(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "test",
-			args: args{&domain.Book{
-				Name: "aaaaa",
-				Category_id: category.ID,
-			}},
+			name: "Success",
+			args: args{
+				&domain.Book{
+					Name:        "Create New Book 1",
+					Category_id: category.ID,
+					Description: "description",
+				},
+			},
+		},
+		{
+			name: "Category_id is not correct",
+			args: args{
+				&domain.Book{
+					Name:        "Create New Book 1",
+					Category_id: fakeCategoryID,
+					Description: "description",
+				},
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
