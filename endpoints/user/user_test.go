@@ -6,9 +6,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/hieunmce/example-go/domain"
-	"github.com/hieunmce/example-go/service"
-	userService "github.com/hieunmce/example-go/service/user"
+	"github.com/luquehuong/example-go/domain"
+	"github.com/luquehuong/example-go/service"
+	userService "github.com/luquehuong/example-go/service/user"
 )
 
 func TestMakeUpdateEndpoint(t *testing.T) {

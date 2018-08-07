@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/hieunmce/example-go/cmd/migrator/config"
+	"github.com/luquehuong/example-go/cmd/migrator/config"
 )
 
 const (

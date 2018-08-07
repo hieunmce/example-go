@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hieunmce/example-go/domain"
+	"github.com/luquehuong/example-go/domain"
 )
 
 func Test_validationMiddleware_Update(t *testing.T) {
@@ -22,6 +22,7 @@ func Test_validationMiddleware_Update(t *testing.T) {
 	type args struct {
 		p *domain.User
 	}
+
 	tests := []struct {
 		name            string
 		args            args

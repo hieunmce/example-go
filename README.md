@@ -41,49 +41,49 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] validate email of user is not empty.
   * [x] validate email of user is a valid email.
   
-* [ ] API must be able to CRUD category of books:
-  * [ ] Each category should have the following fields:
+* [X] API must be able to CRUD category of books:
+  * [X] Each category should have the following fields:
     * id (uuid)
     * name (string)
-  * [ ] API must be able to get detail of a category.
-  * [ ] API must be able to get list of categories.
-  * [ ] API must be able to create a category.
-  * [ ] API must be able to update a category.
-  * [ ] API must be able to delete a category.
-  * [ ] when delete categories all book belongs to that categories should deleted too.
+  * [X] API must be able to get detail of a category.
+  * [X] API must be able to get list of categories.
+  * [X] API must be able to create a category.
+  * [X] API must be able to update a category.
+  * [X] API must be able to delete a category.
+  * [X] when delete categories all book belongs to that categories should deleted too.
   
-* [ ] Validate category is correct before (Create/Update):
-  * [ ] validate name of category is not empty and length > 5 characters.
-  * [ ] validate name of category not existed yet (for both create and update).
+* [X] Validate category is correct before (Create/Update):
+  * [X] validate name of category is not empty and length > 5 characters.
+  * [X] validate name of category not existed yet (for both create and update).
 
-* [ ] API must be able to CRUD books:
-  * [ ] Each book should have the following fields:
+* [X] API must be able to CRUD books:
+  * [X] Each book should have the following fields:
     * id (uuid)
     * name (string)
     * category_id (uuid)
     * author (string)
     * description (string)
-  * [ ] API must be able to get detail of a book.
-  * [ ] API must be able to get list of books.
-  * [ ] API must be able to create a book.
-  * [ ] API must be able to update a book.
-  * [ ] API must be able to delete a book.
+  * [X] API must be able to get detail of a book.
+  * [X] API must be able to get list of books.
+  * [X] API must be able to create a book.
+  * [X] API must be able to update a book.
+  * [X] API must be able to delete a book.
   
-* [ ] Validate books is correct before (Create/Update):
-  * [ ] validate category of a book is exist, if not reject it with error message
-  * [ ] validate name of a book is not empty and length > 5 characters. if not reject it with error message
-  * [ ] validate description of a book is not empty and length > 5 characters. if not reject it with error message
+* [X] Validate books is correct before (Create/Update):
+  * [X] validate category of a book is exist, if not reject it with error message
+  * [X] validate name of a book is not empty and length > 5 characters. if not reject it with error message
+  * [X] validate description of a book is not empty and length > 5 characters. if not reject it with error message
   
-* [ ] API must be able to make action: user lend a book:
-  * [ ] API should have the following fields:
+* [X] API must be able to make action: user lend a book:
+  * [X] API should have the following fields:
     * id (uuid)
     * book_id (uuid)
     * user_id (uuid)
     * from (datetime)
     * to (datetime)
-  * [ ] validate book_id of a book is exist, if not reject it with error message
-  * [ ] validate user_id of a user is exist, if not reject it with error message
-  * [ ] validate books is available to lend, if not available reject with error message
+  * [X] validate book_id of a book is exist, if not reject it with error message
+  * [X] validate user_id of a user is exist, if not reject it with error message
+  * [X] validate books is available to lend, if not available reject with error message
   
   
 #### Stage 2:
@@ -92,9 +92,9 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] Validation testing (unit test)
   * [x] Endpoint testing (unit test)
   * [x] Database testing (integration)
-* [ ] Add testing for CRUD category:
-  * [ ] Validation testing
-  * [ ] Database testing
+* [X] Add testing for CRUD category:
+  * [X] Validation testing
+  * [X] Database testing
 * [ ] Add testing for CRUD books:
   * [ ] Validation testing
   * [ ] Database testing
