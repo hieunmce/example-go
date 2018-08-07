@@ -22,6 +22,7 @@ func Test_validationMiddleware_Update(t *testing.T) {
 	type args struct {
 		p *domain.User
 	}
+
 	tests := []struct {
 		name            string
 		args            args
