@@ -10,28 +10,110 @@ import (
 )
 
 func Test_validationMiddleware_Create(t *testing.T) {
-	type fields struct {
-		Service Service
+	serviceMock := &ServiceMock{
+		CreateFunc: func(_ context.Context, p *domain.Category) error {
+			return nil
+		},
 	}
+
+	defaultCtx := context.Background()
 	type args struct {
-		ctx      context.Context
-		category *domain.Category
+		p *domain.Category
 	}
 	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		wantErr bool
+		name            string
+		args            args
+		wantErr         bool
+		wantOutput      *domain.Category
+		errorStatusCode int
 	}{
 		// TODO: Add test cases.
+		{
+			name: "valid category",
+			args: args{&domain.Category{
+				Name: "Curabitur vulputate vestibulum lorem.",
+			}},
+			wantOutput: &domain.Category{
+				Name: "Curabitur vulputate vestibulum lorem.",
+			},
+		},
+		{
+			name:            "invalid category by missing name",
+			args:            args{&domain.Category{}},
+			wantErr:         true,
+			errorStatusCode: http.StatusBadRequest,
+		},
+		{
+			name: "invalid category by name is empty",
+			args: args{&domain.Category{
+				Name: "",
+			}},
+			wantErr:         true,
+			errorStatusCode: http.StatusBadRequest,
+		},
+		{
+			name: "invalid category by lenght name < 5 characters",
+			args: args{&domain.Category{
+				Name: "a",
+			}},
+			wantErr:         true,
+			errorStatusCode: http.StatusBadRequest,
+		},
+		{
+			name: "invalid category by lenght name < 5 characters",
+			args: args{&domain.Category{
+				Name: "ab",
+			}},
+			wantErr:         true,
+			errorStatusCode: http.StatusBadRequest,
+		},
+		{
+			name: "invalid category by lenght name < 5 characters",
+			args: args{&domain.Category{
+				Name: "abc",
+			}},
+			wantErr:         true,
+			errorStatusCode: http.StatusBadRequest,
+		},
+		{
+			name: "invalid category by lenght name < 5 characters",
+			args: args{&domain.Category{
+				Name: "abcd",
+			}},
+			wantErr:         true,
+			errorStatusCode: http.StatusBadRequest,
+		},
+		{
+			name: "invalid category by lenght name < 5 characters",
+			args: args{&domain.Category{
+				Name: "abcde",
+			}},
+			wantErr:         true,
+			errorStatusCode: http.StatusBadRequest,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mw := validationMiddleware{
-				Service: tt.fields.Service,
+				Service: serviceMock,
 			}
-			if err := mw.Create(tt.args.ctx, tt.args.category); (err != nil) != tt.wantErr {
-				t.Errorf("validationMiddleware.Create() error = %v, wantErr %v", err, tt.wantErr)
+			err := mw.Create(defaultCtx, tt.args.p)
+			if err != nil {
+				if tt.wantErr == false {
+					t.Errorf("validationMiddleware.Create() error = %v, wantErr %v", err, tt.wantErr)
+					return
+				}
+
+				status, ok := err.(interface{ StatusCode() int })
+				if !ok {
+					t.Errorf("validationMiddleware.Create() error %v doesn't implement StatusCode()", err)
+				}
+				if tt.errorStatusCode != status.StatusCode() {
+					t.Errorf("validationMiddleware.Create() status = %v, want status code %v", status.StatusCode(), tt.errorStatusCode)
+					return
+				}
+
+				return
 			}
 		})
 	}
@@ -128,7 +210,7 @@ func Test_validationMiddleware_Update(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			name: "valid user",
+			name: "valid category",
 			args: args{&domain.Category{
 				Name: "Curabitur vulputate vestibulum lorem.",
 			}},
@@ -137,13 +219,13 @@ func Test_validationMiddleware_Update(t *testing.T) {
 			},
 		},
 		{
-			name:            "invalid user by missing name",
+			name:            "invalid category by missing name",
 			args:            args{&domain.Category{}},
 			wantErr:         true,
 			errorStatusCode: http.StatusBadRequest,
 		},
 		{
-			name: "invalid user by name is empty",
+			name: "invalid category by name is empty",
 			args: args{&domain.Category{
 				Name: "",
 			}},
@@ -151,7 +233,7 @@ func Test_validationMiddleware_Update(t *testing.T) {
 			errorStatusCode: http.StatusBadRequest,
 		},
 		{
-			name: "invalid user by lenght name < 5 characters",
+			name: "invalid category by lenght name < 5 characters",
 			args: args{&domain.Category{
 				Name: "a",
 			}},
@@ -159,7 +241,7 @@ func Test_validationMiddleware_Update(t *testing.T) {
 			errorStatusCode: http.StatusBadRequest,
 		},
 		{
-			name: "invalid user by lenght name < 5 characters",
+			name: "invalid category by lenght name < 5 characters",
 			args: args{&domain.Category{
 				Name: "ab",
 			}},
@@ -167,7 +249,7 @@ func Test_validationMiddleware_Update(t *testing.T) {
 			errorStatusCode: http.StatusBadRequest,
 		},
 		{
-			name: "invalid user by lenght name < 5 characters",
+			name: "invalid category by lenght name < 5 characters",
 			args: args{&domain.Category{
 				Name: "abc",
 			}},
@@ -175,7 +257,7 @@ func Test_validationMiddleware_Update(t *testing.T) {
 			errorStatusCode: http.StatusBadRequest,
 		},
 		{
-			name: "invalid user by lenght name < 5 characters",
+			name: "invalid category by lenght name < 5 characters",
 			args: args{&domain.Category{
 				Name: "abcd",
 			}},
@@ -183,7 +265,7 @@ func Test_validationMiddleware_Update(t *testing.T) {
 			errorStatusCode: http.StatusBadRequest,
 		},
 		{
-			name: "invalid user by lenght name < 5 characters",
+			name: "invalid category by lenght name < 5 characters",
 			args: args{&domain.Category{
 				Name: "abcde",
 			}},
