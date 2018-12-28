@@ -2,27 +2,31 @@ package endpoints
 
 import (
 	"github.com/go-kit/kit/endpoint"
-	"github.com/minhkhiemm/example-go/service"
 
-	"github.com/minhkhiemm/example-go/endpoints/user"
+	"github.com/minhkhiemm/example-go/endpoints/account"
+	"github.com/minhkhiemm/example-go/endpoints/order"
+	"github.com/minhkhiemm/example-go/service"
 )
 
 // Endpoints .
 type Endpoints struct {
-	FindUser    endpoint.Endpoint
-	FindAllUser endpoint.Endpoint
-	CreateUser  endpoint.Endpoint
-	UpdateUser  endpoint.Endpoint
-	DeleteUser  endpoint.Endpoint
+	// Orders
+	GetAllOrderByDate endpoint.Endpoint
+	CreateOrder       endpoint.Endpoint
+	GetOrderByID      endpoint.Endpoint
+	// Accounts
+	CreateAccount endpoint.Endpoint
 }
 
 // MakeServerEndpoints returns an Endpoints struct
 func MakeServerEndpoints(s service.Service) Endpoints {
 	return Endpoints{
-		FindUser:    user.MakeFindEndPoint(s),
-		FindAllUser: user.MakeFindAllEndpoint(s),
-		CreateUser:  user.MakeCreateEndpoint(s),
-		UpdateUser:  user.MakeUpdateEndpoint(s),
-		DeleteUser:  user.MakeDeleteEndpoint(s),
+		// Orders
+		GetAllOrderByDate: order.GetAllByDate(s),
+		CreateOrder:       order.Create(s),
+		GetOrderByID:      order.Get(s),
+
+		// Accounts
+		CreateAccount: account.Create(s),
 	}
 }

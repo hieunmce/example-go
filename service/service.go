@@ -1,8 +1,12 @@
 package service
 
-import "github.com/minhkhiemm/example-go/service/user"
+import (
+	"github.com/minhkhiemm/example-go/service/account"
+	"github.com/minhkhiemm/example-go/service/order"
+)
 
 // Service define list of all services in projects
 type Service struct {
-	UserService user.Service
+	OrderService   order.Service
+	AccountService account.Service
 }

@@ -10,7 +10,6 @@ import (
 	httptransport "github.com/go-kit/kit/transport/http"
 
 	"github.com/minhkhiemm/example-go/endpoints"
-	userDecode "github.com/minhkhiemm/example-go/http/decode/json/user"
 )
 
 // NewHTTPHandler ...
@@ -42,34 +41,30 @@ func NewHTTPHandler(endpoints endpoints.Endpoints,
 		options...,
 	).ServeHTTP)
 
-	r.Route("/users", func(r chi.Router) {
+	r.Route("/orders", func(r chi.Router) {
 		r.Get("/", httptransport.NewServer(
-			endpoints.FindAllUser,
-			userDecode.FindAllRequest,
-			encodeResponse,
-			options...,
-		).ServeHTTP)
-		r.Get("/{user_id}", httptransport.NewServer(
-			endpoints.FindUser,
-			userDecode.FindRequest,
+			endpoints.GetAllOrderByDate,
+			DecodeGetAllByDateRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)
 		r.Post("/", httptransport.NewServer(
-			endpoints.CreateUser,
-			userDecode.CreateRequest,
+			endpoints.CreateOrder,
+			DecodeCreateOrderRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)
-		r.Put("/{user_id}", httptransport.NewServer(
-			endpoints.UpdateUser,
-			userDecode.UpdateRequest,
+		r.Get("/{orderid}", httptransport.NewServer(
+			endpoints.GetOrderByID,
+			DecodeGetOrderByIDRequest,
 			encodeResponse,
 			options...,
 		).ServeHTTP)
-		r.Delete("/{user_id}", httptransport.NewServer(
-			endpoints.DeleteUser,
-			userDecode.DeleteRequest,
+	})
+	r.Route("/accounts", func(r chi.Router) {
+		r.Post("/", httptransport.NewServer(
+			endpoints.CreateAccount,
+			DecodeCreateAccount,
 			encodeResponse,
 			options...,
 		).ServeHTTP)

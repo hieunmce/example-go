@@ -63,6 +63,10 @@ func CreateTestDatabase(t *testing.T) (*gorm.DB, string, func()) {
 // MigrateTables migrate db with tables base by domain model
 func MigrateTables(db *gorm.DB) error {
 	return db.AutoMigrate(
-		domain.User{},
+		domain.Account{},
+		domain.Detail{},
+		domain.Drink{},
+		domain.Order{},
+		domain.Shop{},
 	).Error
 }
