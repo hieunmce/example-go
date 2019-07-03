@@ -41,20 +41,20 @@ Time spent: **{{time_spent}}** hours spent in total
   * [x] validate email of user is not empty.
   * [x] validate email of user is a valid email.
   
-* [ ] API must be able to CRUD category of books:
-  * [ ] Each category should have the following fields:
+* [x] API must be able to CRUD category of books:
+  * [x] Each category should have the following fields:
     * id (uuid)
     * name (string)
-  * [ ] API must be able to get detail of a category.
-  * [ ] API must be able to get list of categories.
-  * [ ] API must be able to create a category.
-  * [ ] API must be able to update a category.
-  * [ ] API must be able to delete a category.
+  * [x] API must be able to get detail of a category.
+  * [x] API must be able to get list of categories.
+  * [x] API must be able to create a category.
+  * [x] API must be able to update a category.
+  * [x] API must be able to delete a category.
   * [ ] when delete categories all book belongs to that categories should deleted too.
   
-* [ ] Validate category is correct before (Create/Update):
-  * [ ] validate name of category is not empty and length > 5 characters.
-  * [ ] validate name of category not existed yet (for both create and update).
+* [x] Validate category is correct before (Create/Update):
+  * [x] validate name of category is not empty and length > 5 characters.
+  * [x] validate name of category not existed yet (for both create and update).
 
 * [ ] API must be able to CRUD books:
   * [ ] Each book should have the following fields:
