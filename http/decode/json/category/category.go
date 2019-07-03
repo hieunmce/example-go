@@ -1,4 +1,4 @@
-package user
+package category
 
 import (
 	"context"
@@ -8,53 +8,53 @@ import (
 	"github.com/go-chi/chi"
 
 	"github.com/neverdiefc/example-go/domain"
-	userEndpoint "github.com/neverdiefc/example-go/endpoints/user"
+	categoryEndpoint "github.com/neverdiefc/example-go/endpoints/category"
 )
 
 // FindRequest .
 func FindRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	userID, err := domain.UUIDFromString(chi.URLParam(r, "user_id"))
+	categoryID, err := domain.UUIDFromString(chi.URLParam(r, "category_id"))
 	if err != nil {
 		return nil, err
 	}
-	return userEndpoint.FindRequest{UserID: userID}, nil
+	return categoryEndpoint.FindRequest{CategoryID: categoryID}, nil
 }
 
 // FindAllRequest .
 func FindAllRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	return userEndpoint.FindAllRequest{}, nil
+	return categoryEndpoint.FindAllRequest{}, nil
 }
 
 // CreateRequest .
 func CreateRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	var req userEndpoint.CreateRequest
+	var req categoryEndpoint.CreateRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	return req, err
 }
 
 // UpdateRequest .
 func UpdateRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	userID, err := domain.UUIDFromString(chi.URLParam(r, "user_id"))
+	categoryID, err := domain.UUIDFromString(chi.URLParam(r, "category_id"))
 	if err != nil {
 		return nil, err
 	}
 
-	var req userEndpoint.UpdateRequest
+	var req categoryEndpoint.UpdateRequest
 	err = json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
 		return nil, err
 	}
 
-	req.User.ID = userID
+	req.Category.ID = categoryID
 
 	return req, nil
 }
 
 // DeleteRequest .
 func DeleteRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	userID, err := domain.UUIDFromString(chi.URLParam(r, "user_id"))
+	categoryID, err := domain.UUIDFromString(chi.URLParam(r, "category_id"))
 	if err != nil {
 		return nil, err
 	}
-	return userEndpoint.DeleteRequest{UserID: userID}, nil
+	return categoryEndpoint.DeleteRequest{CategoryID: categoryID}, nil
 }

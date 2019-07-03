@@ -1,6 +1,6 @@
 // +build integration
 
-package user
+package category
 
 import (
 	"context"
@@ -23,7 +23,7 @@ func TestPGService_Create(t *testing.T) {
 	}
 
 	type args struct {
-		p *domain.User
+		p *domain.Category
 	}
 	tests := []struct {
 		name    string
@@ -33,8 +33,8 @@ func TestPGService_Create(t *testing.T) {
 		{
 			name: "Success",
 			args: args{
-				&domain.User{
-					Name:  "Create New User 1",
+				&domain.Category{
+					Name:  "Create New Category 1",
 					Email: "example@gmail.com",
 				},
 			},
@@ -61,16 +61,16 @@ func TestPGService_Update(t *testing.T) {
 		t.Fatalf("Failed to migrate table by error %v", err)
 	}
 
-	user := domain.User{}
-	err = testDB.Create(&user).Error
+	category := domain.Category{}
+	err = testDB.Create(&category).Error
 	if err != nil {
-		t.Fatalf("Failed to create user by error %v", err)
+		t.Fatalf("Failed to create category by error %v", err)
 	}
 
-	fakeUserID := domain.MustGetUUIDFromString("1698bbd6-e0c8-4957-a5a9-8c536970994b")
+	fakeCategoryID := domain.MustGetUUIDFromString("1698bbd6-e0c8-4957-a5a9-8c536970994b")
 
 	type args struct {
-		p *domain.User
+		p *domain.Category
 	}
 	tests := []struct {
 		name    string
@@ -80,9 +80,9 @@ func TestPGService_Update(t *testing.T) {
 		{
 			name: "success update",
 			args: args{
-				&domain.User{
-					Model: domain.Model{ID: user.ID},
-					Name:  "user Name 1",
+				&domain.Category{
+					Model: domain.Model{ID: category.ID},
+					Name:  "category Name 1",
 					Email: "example@gmail.com",
 				},
 			},
@@ -90,9 +90,9 @@ func TestPGService_Update(t *testing.T) {
 		{
 			name: "failed update",
 			args: args{
-				&domain.User{
-					Model: domain.Model{ID: fakeUserID},
-					Name:  "user Name 1",
+				&domain.Category{
+					Model: domain.Model{ID: fakeCategoryID},
+					Name:  "category Name 1",
 					Email: "example@gmail.com",
 				},
 			},
@@ -125,39 +125,39 @@ func TestPGService_Find(t *testing.T) {
 		t.Fatalf("Failed to migrate table by error %v", err)
 	}
 
-	user := domain.User{}
-	err = testDB.Create(&user).Error
+	category := domain.Category{}
+	err = testDB.Create(&category).Error
 	if err != nil {
-		t.Fatalf("Failed to create user by error %v", err)
+		t.Fatalf("Failed to create category by error %v", err)
 	}
 
-	fakeUserID := domain.MustGetUUIDFromString("1698bbd6-e0c8-4957-a5a9-8c536970994b")
+	fakeCategoryID := domain.MustGetUUIDFromString("1698bbd6-e0c8-4957-a5a9-8c536970994b")
 
 	type args struct {
-		p *domain.User
+		p *domain.Category
 	}
 	tests := []struct {
 		name    string
 		args    args
-		want    *domain.User
+		want    *domain.Category
 		wantErr error
 	}{
 		{
-			name: "success find correct user",
+			name: "success find correct category",
 			args: args{
-				&domain.User{
-					Model: domain.Model{ID: user.ID},
+				&domain.Category{
+					Model: domain.Model{ID: category.ID},
 				},
 			},
-			want: &domain.User{
-				Model: domain.Model{ID: user.ID},
+			want: &domain.Category{
+				Model: domain.Model{ID: category.ID},
 			},
 		},
 		{
-			name: "failed find user by not exist user id",
+			name: "failed find category by not exist category id",
 			args: args{
-				&domain.User{
-					Model: domain.Model{ID: fakeUserID},
+				&domain.Category{
+					Model: domain.Model{ID: fakeCategoryID},
 				},
 			},
 			wantErr: ErrNotFound,
@@ -197,7 +197,7 @@ func TestPGService_FindAll(t *testing.T) {
 		name    string
 		fields  fields
 		args    args
-		want    []domain.User
+		want    []domain.Category
 		wantErr bool
 	}{
 		// TODO: Add test cases.
@@ -228,16 +228,16 @@ func TestPGService_Delete(t *testing.T) {
 		t.Fatalf("Failed to migrate table by error %v", err)
 	}
 
-	user := domain.User{}
-	err = testDB.Create(&user).Error
+	category := domain.Category{}
+	err = testDB.Create(&category).Error
 	if err != nil {
-		t.Fatalf("Failed to create user by error %v", err)
+		t.Fatalf("Failed to create category by error %v", err)
 	}
 
-	fakeUserID := domain.MustGetUUIDFromString("1698bbd6-e0c8-4957-a5a9-8c536970994b")
+	fakeCategoryID := domain.MustGetUUIDFromString("1698bbd6-e0c8-4957-a5a9-8c536970994b")
 
 	type args struct {
-		p *domain.User
+		p *domain.Category
 	}
 	tests := []struct {
 		name    string
@@ -247,19 +247,19 @@ func TestPGService_Delete(t *testing.T) {
 		{
 			name: "success delete",
 			args: args{
-				&domain.User{
-					Name:  "This is user Name",
-					Model: domain.Model{ID: user.ID},
+				&domain.Category{
+					Name:  "This is category Name",
+					Model: domain.Model{ID: category.ID},
 					Email: "example@gmail.com",
 				},
 			},
 		},
 		{
-			name: "failed delete by not exist user id",
+			name: "failed delete by not exist category id",
 			args: args{
-				&domain.User{
-					Model: domain.Model{ID: fakeUserID},
-					Name:  "This is user Name",
+				&domain.Category{
+					Model: domain.Model{ID: fakeCategoryID},
+					Name:  "This is category Name",
 					Email: "example@gmail.com",
 				},
 			},
