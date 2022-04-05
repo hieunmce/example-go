@@ -2,10 +2,11 @@ package user
 
 import (
 	"context"
+	"example.com/m/domain"
+	_ "fmt"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/jinzhu/gorm"
-
-	"github.com/hieunmce/example-go/domain"
 )
 
 // pgService implmenter for User serivce in postgres
@@ -22,6 +23,13 @@ func NewPGService(db *gorm.DB) Service {
 
 // Create implement Create for User service
 func (s *pgService) Create(_ context.Context, p *domain.User) error {
+	password := []byte(p.Password)
+	hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+
+	if err != nil {
+		panic(err)
+	}
+	p.Password = string(hashedPassword)
 	return s.db.Create(p).Error
 }
 

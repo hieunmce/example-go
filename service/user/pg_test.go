@@ -9,8 +9,8 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	testutil "github.com/hieunmce/example-go/config/database/pg/util"
-	"github.com/hieunmce/example-go/domain"
+	testutil "github.com/trantrongkim98/example-go/config/database/pg/util"
+	"github.com/trantrongkim98/example-go/domain"
 )
 
 func TestPGService_Create(t *testing.T) {
@@ -36,6 +36,7 @@ func TestPGService_Create(t *testing.T) {
 				&domain.User{
 					Name:  "Create New User 1",
 					Email: "example@gmail.com",
+					Password: "123456"
 				},
 			},
 		},
@@ -45,6 +46,15 @@ func TestPGService_Create(t *testing.T) {
 			s := &pgService{
 				db: testDB,
 			}
+
+				  // Hashing the password with the default cost of 10
+				  hashedPassword, err := bcrypt.GenerateFromPassword(p.Password, bcrypt.DefaultCost)
+				  if err != nil {
+					  panic(err)
+				  }
+				  p.Password = hashedPassword
+			
+			fmt.Println(string(hashedPassword))
 			if err := s.Create(context.Background(), tt.args.p); (err != nil) != tt.wantErr {
 				t.Errorf("pgService.Create() error = %v, wantErr %v", err, tt.wantErr)
 			}

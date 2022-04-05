@@ -1,3 +1,4 @@
+//go:build unit
 // +build unit
 
 package user
@@ -6,9 +7,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/hieunmce/example-go/domain"
-	"github.com/hieunmce/example-go/service"
-	userService "github.com/hieunmce/example-go/service/user"
+	"example.com/m/domain"
+	"example.com/m/service"
+	userService "example.com/m/service/user"
 )
 
 func TestMakeUpdateEndpoint(t *testing.T) {

@@ -12,12 +12,30 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 
-	"github.com/hieunmce/example-go/config/database/pg"
-	"github.com/hieunmce/example-go/endpoints"
-	serviceHttp "github.com/hieunmce/example-go/http"
-	"github.com/hieunmce/example-go/service"
-	userSvc "github.com/hieunmce/example-go/service/user"
+	"example.com/m/config/database/pg"
+	"example.com/m/endpoints"
+	serviceHttp "example.com/m/http"
+	"example.com/m/service"
+	bookSvc "example.com/m/service/book"
+	categorySvc "example.com/m/service/category"
+	lendBookSvc "example.com/m/service/lendbook"
+	userSvc "example.com/m/service/user"
 )
+
+// @title           Swagger Example API
+// @version         1.0
+// @description     This is a sample server celler server.
+// @termsOfService  http://swagger.io/terms/
+
+// @contact.name   API Support
+// @contact.url    http://www.swagger.io/support
+// @contact.email  support@swagger.io
+
+// @license.name  Apache 2.0
+// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host      localhost:3030
+// @BasePath  /
 
 func main() {
 	// setup env on local
@@ -27,9 +45,8 @@ func main() {
 			panic(fmt.Sprintf("failed to load .env by errors: %v", err))
 		}
 	}
-
 	// setup addrr
-	httpAddr := ":" + os.Getenv("PORT")
+	httpAddr := ":" + os.Getenv("K_PORT")
 
 	// setup log
 	var logger log.Logger
@@ -57,6 +74,18 @@ func main() {
 				userSvc.NewPGService(pgDB),
 				userSvc.ValidationMiddleware(),
 			).(userSvc.Service),
+			CategoryService: service.Compose(
+				categorySvc.NewPGService(pgDB),
+				categorySvc.ValidationMiddleware(),
+			).(categorySvc.Service),
+			BookService: service.Compose(
+				bookSvc.NewPGService(pgDB),
+				bookSvc.ValidationMiddleware(),
+			).(bookSvc.Service),
+			LendBookService: service.Compose(
+				lendBookSvc.NewPGService(pgDB),
+				lendBookSvc.ValidationMiddleware(),
+			).(lendBookSvc.Service),
 		}
 	)
 	defer closeDB()
@@ -78,9 +107,15 @@ func main() {
 	}()
 
 	go func() {
-		logger.Log("transport", "HTTP", "addr", httpAddr)
+		err := logger.Log("transport", "HTTP", "addr", httpAddr)
+		if err != nil {
+			return
+		}
 		errs <- http.ListenAndServe(httpAddr, h)
 	}()
 
-	logger.Log("exit", <-errs)
+	err := logger.Log("exit", <-errs)
+	if err != nil {
+		return
+	}
 }

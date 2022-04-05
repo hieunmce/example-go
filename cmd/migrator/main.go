@@ -9,8 +9,8 @@ import (
 	"github.com/pressly/goose"
 
 	// Init DB drivers.
-	"github.com/hieunmce/example-go/cmd/migrator/config"
-	dbconn "github.com/hieunmce/example-go/cmd/migrator/db"
+	"example.com/m/cmd/migrator/config"
+	dbconn "example.com/m/cmd/migrator/db"
 )
 
 var (
@@ -53,7 +53,7 @@ func main() {
 	}
 
 	command := args[0]
-	arguments := []string{}
+	var arguments []string
 	if len(args) > 1 {
 		arguments = append(arguments, args[1:]...)
 	}

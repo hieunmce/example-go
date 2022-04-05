@@ -2,18 +2,18 @@ package user
 
 import (
 	"context"
-	"net/http"
-
+	"example.com/m/domain"
+	"example.com/m/service"
 	"github.com/go-kit/kit/endpoint"
-
-	"github.com/hieunmce/example-go/domain"
-	"github.com/hieunmce/example-go/service"
+	"github.com/golang-jwt/jwt/v4"
+	"net/http"
 )
 
 // CreateData data for CreateUser
 type CreateData struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 // CreateRequest request struct for CreateUser
@@ -23,7 +23,8 @@ type CreateRequest struct {
 
 // CreateResponse response struct for CreateUser
 type CreateResponse struct {
-	User domain.User `json:"user"`
+	User  domain.User  `json:"user"`
+	Token domain.Token `json:"token"`
 }
 
 // StatusCode customstatus code for success create User
@@ -32,13 +33,16 @@ func (CreateResponse) StatusCode() int {
 }
 
 // MakeCreateEndpoint make endpoint for create a User
+
+//swagger
 func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		var (
 			req  = request.(CreateRequest)
 			user = &domain.User{
-				Name:  req.User.Name,
-				Email: req.User.Email,
+				Name:     req.User.Name,
+				Email:    req.User.Email,
+				Password: req.User.Password,
 			}
 		)
 
@@ -46,8 +50,25 @@ func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 		if err != nil {
 			return nil, err
 		}
+		var userResp = domain.User{
+			Name:  user.Name,
+			Email: user.Email,
+			Model: user.Model,
+		}
 
-		return CreateResponse{User: *user}, nil
+		tokenString, err := generateToken(7, jwt.MapClaims{
+			"name":  userResp.Name,
+			"email": userResp.Email,
+		})
+		refreshTokenString, err := generateToken(30, jwt.MapClaims{
+			"name":  userResp.Name,
+			"email": userResp.Email,
+		})
+		tokenResp := domain.Token{
+			Token:        tokenString,
+			RefreshToken: refreshTokenString,
+		}
+		return CreateResponse{User: userResp, Token: tokenResp}, nil
 	}
 }
 

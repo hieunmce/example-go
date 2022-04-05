@@ -6,7 +6,8 @@ CREATE TABLE "public"."users" (
   "created_at" timestamptz DEFAULT now(),
   "deleted_at" timestamptz,
   "name" text,
-  "email" text,
+  "email" text unique ,
+  "password" text,
   CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 

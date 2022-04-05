@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 
-	"github.com/hieunmce/example-go/domain"
+	"example.com/m/domain"
 )
 
 // Service interface for project service

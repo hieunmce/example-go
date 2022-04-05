@@ -7,8 +7,8 @@ import (
 
 	"github.com/go-chi/chi"
 
-	"github.com/hieunmce/example-go/domain"
-	userEndpoint "github.com/hieunmce/example-go/endpoints/user"
+	"example.com/m/domain"
+	userEndpoint "example.com/m/endpoints/user"
 )
 
 // FindRequest .
