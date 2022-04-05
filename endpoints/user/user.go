@@ -7,7 +7,6 @@ import (
 	"github.com/go-kit/kit/endpoint"
 	"github.com/golang-jwt/jwt/v4"
 	"net/http"
-	"time"
 )
 
 // CreateData data for CreateUser
@@ -34,6 +33,8 @@ func (CreateResponse) StatusCode() int {
 }
 
 // MakeCreateEndpoint make endpoint for create a User
+
+//swagger
 func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		var (
@@ -54,25 +55,15 @@ func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 			Email: user.Email,
 			Model: user.Model,
 		}
-		var hmacSampleSecret = []byte("Tran Trong Kim")
-		createdAt := time.Now()
-		expToken := createdAt.AddDate(0, 0, 7)
-		expRefreshToken := createdAt.AddDate(0, 1, 0)
 
-		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-			"name":       userResp.Name,
-			"email":      userResp.Email,
-			"created_at": createdAt.Unix(),
-			"exp":        expToken.Unix(),
+		tokenString, err := generateToken(7, jwt.MapClaims{
+			"name":  userResp.Name,
+			"email": userResp.Email,
 		})
-		refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-			"name":       userResp.Name,
-			"email":      userResp.Email,
-			"created_at": createdAt.Unix(),
-			"exp":        expRefreshToken.Unix(),
+		refreshTokenString, err := generateToken(30, jwt.MapClaims{
+			"name":  userResp.Name,
+			"email": userResp.Email,
 		})
-		tokenString, err := token.SignedString(hmacSampleSecret)
-		refreshTokenString, err := refreshToken.SignedString(hmacSampleSecret)
 		tokenResp := domain.Token{
 			Token:        tokenString,
 			RefreshToken: refreshTokenString,

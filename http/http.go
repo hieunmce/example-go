@@ -45,6 +45,9 @@ func NewHTTPHandler(endpoints endpoints.Endpoints,
 		options...,
 	).ServeHTTP)
 
+	r.Route("/auth", func(r chi.Router) {
+
+	})
 	r.Route("/users", func(r chi.Router) {
 		r.Get("/", httptransport.NewServer(
 			endpoints.FindAllUser,

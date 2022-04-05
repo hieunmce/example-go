@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"example.com/m/domain"
+	"github.com/lib/pq"
 	"regexp"
 )
 
@@ -42,7 +43,14 @@ func (mw validationMiddleware) Create(ctx context.Context, user *domain.User) (e
 	if !emailRegexp.MatchString(user.Email) {
 		return ErrEmailIsInvalid
 	}
-	return mw.Service.Create(ctx, user)
+	err = mw.Service.Create(ctx, user)
+	if err != nil {
+		pgErr := err.(*pq.Error)
+		if pgErr.Code.Name() == "unique_violation" {
+			return ErrEmailExisted
+		}
+	}
+	return err
 }
 func (mw validationMiddleware) FindAll(ctx context.Context) ([]domain.User, error) {
 	return mw.Service.FindAll(ctx)

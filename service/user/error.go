@@ -13,6 +13,7 @@ var (
 	ErrEmailIsInvalid     = errEmailIsInvalid{}
 	ErrRecordNotFound     = errRecordNotFound{}
 	ErrPasswordIsRequired = errPasswordIsRequired{}
+	ErrEmailExisted       = errEmailExisted{}
 )
 
 type errNotFound struct{}
@@ -78,4 +79,14 @@ func (errPasswordIsRequired) Error() string {
 
 func (errPasswordIsRequired) StatusCode() int {
 	return http.StatusBadRequest
+}
+
+type errEmailExisted struct{}
+
+func (errEmailExisted) Error() string {
+	return "User email existed"
+}
+
+func (errEmailExisted) StatusCode() int {
+	return http.StatusConflict
 }

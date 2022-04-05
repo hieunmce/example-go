@@ -19,21 +19,21 @@ func NewPGConnector() *PGConnector { return &PGConnector{} }
 
 // Open open new connection to posgres using config
 func (c *PGConnector) Open(cfg *config.Config) (*sql.DB, error) {
-	sslmode := "disable"
+	sslMode := "disable"
 	if cfg.DBSSLModeOption == "enable" {
-		sslmode = "require"
+		sslMode = "require"
 	}
 
-	dbstring := fmt.Sprintf("user=%s dbname=%s sslmode=%s password=%s host=%s port=%s",
+	dbString := fmt.Sprintf("user=%s dbname=%s sslMode=%s password=%s host=%s port=%s",
 		cfg.DBUserName,
 		cfg.DBName,
-		sslmode,
+		sslMode,
 		cfg.DBPassword,
 		cfg.DBHostname,
 		cfg.DBPort,
 	)
 
-	return sql.Open("postgres", dbstring)
+	return sql.Open("postgres", dbString)
 }
 
 // InitModel .
