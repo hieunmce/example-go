@@ -1,13 +1,13 @@
 package endpoints
 
 import (
+	"example.com/m/service"
 	"github.com/go-kit/kit/endpoint"
-	"github.com/trantrongkim98/example-go/service"
 
-	"github.com/trantrongkim98/example-go/endpoints/book"
-	"github.com/trantrongkim98/example-go/endpoints/category"
-	"github.com/trantrongkim98/example-go/endpoints/lendbook"
-	"github.com/trantrongkim98/example-go/endpoints/user"
+	"example.com/m/endpoints/book"
+	"example.com/m/endpoints/category"
+	"example.com/m/endpoints/lendbook"
+	"example.com/m/endpoints/user"
 )
 
 // Endpoints .

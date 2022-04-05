@@ -5,7 +5,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	"github.com/trantrongkim98/example-go/domain"
+	"example.com/m/domain"
 )
 
 // pgService implmenter for Book serivce in postgres

@@ -2,9 +2,8 @@ package user
 
 import (
 	"context"
+	"example.com/m/domain"
 	"regexp"
-
-	"github.com/trantrongkim98/example-go/domain"
 )
 
 // Declare Regex
@@ -26,6 +25,7 @@ func ValidationMiddleware() func(Service) Service {
 }
 
 func (mw validationMiddleware) Create(ctx context.Context, user *domain.User) (err error) {
+
 	if user.Name == "" {
 		return ErrNameIsRequired
 	}
@@ -34,11 +34,14 @@ func (mw validationMiddleware) Create(ctx context.Context, user *domain.User) (e
 		return ErrEmailIsRequired
 	}
 
+	if user.Password == "" {
+		return ErrPasswordIsRequired
+	}
+
 	emailRegexp, _ := regexp.Compile(emailRegex)
 	if !emailRegexp.MatchString(user.Email) {
 		return ErrEmailIsInvalid
 	}
-
 	return mw.Service.Create(ctx, user)
 }
 func (mw validationMiddleware) FindAll(ctx context.Context) ([]domain.User, error) {

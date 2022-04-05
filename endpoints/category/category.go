@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 
-	"github.com/trantrongkim98/example-go/domain"
-	"github.com/trantrongkim98/example-go/service"
+	"example.com/m/domain"
+	"example.com/m/service"
 )
 
 // CreateData data for CreateCategory

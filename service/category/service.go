@@ -3,7 +3,7 @@ package category
 import (
 	"context"
 
-	"github.com/trantrongkim98/example-go/domain"
+	"example.com/m/domain"
 )
 
 // Service interface for project service

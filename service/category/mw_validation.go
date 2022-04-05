@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/trantrongkim98/example-go/domain"
+	"example.com/m/domain"
 )
 
 // Declare Regex

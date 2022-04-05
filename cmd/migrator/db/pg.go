@@ -7,8 +7,8 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq" // driver for open postgres connection
 
-	"github.com/trantrongkim98/example-go/cmd/migrator/config"
-	"github.com/trantrongkim98/example-go/domain"
+	"example.com/m/cmd/migrator/config"
+	"example.com/m/domain"
 )
 
 // PGConnector store implement open for postgres

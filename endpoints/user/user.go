@@ -2,18 +2,19 @@ package user
 
 import (
 	"context"
-	"net/http"
-
+	"example.com/m/domain"
+	"example.com/m/service"
 	"github.com/go-kit/kit/endpoint"
-
-	"github.com/trantrongkim98/example-go/domain"
-	"github.com/trantrongkim98/example-go/service"
+	"github.com/golang-jwt/jwt/v4"
+	"net/http"
+	"time"
 )
 
 // CreateData data for CreateUser
 type CreateData struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 // CreateRequest request struct for CreateUser
@@ -23,7 +24,8 @@ type CreateRequest struct {
 
 // CreateResponse response struct for CreateUser
 type CreateResponse struct {
-	User domain.User `json:"user"`
+	User  domain.User  `json:"user"`
+	Token domain.Token `json:"token"`
 }
 
 // StatusCode customstatus code for success create User
@@ -37,8 +39,9 @@ func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 		var (
 			req  = request.(CreateRequest)
 			user = &domain.User{
-				Name:  req.User.Name,
-				Email: req.User.Email,
+				Name:     req.User.Name,
+				Email:    req.User.Email,
+				Password: req.User.Password,
 			}
 		)
 
@@ -46,8 +49,35 @@ func MakeCreateEndpoint(s service.Service) endpoint.Endpoint {
 		if err != nil {
 			return nil, err
 		}
+		var userResp = domain.User{
+			Name:  user.Name,
+			Email: user.Email,
+			Model: user.Model,
+		}
+		var hmacSampleSecret = []byte("Tran Trong Kim")
+		createdAt := time.Now()
+		expToken := createdAt.AddDate(0, 0, 7)
+		expRefreshToken := createdAt.AddDate(0, 1, 0)
 
-		return CreateResponse{User: *user}, nil
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+			"name":       userResp.Name,
+			"email":      userResp.Email,
+			"created_at": createdAt.Unix(),
+			"exp":        expToken.Unix(),
+		})
+		refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+			"name":       userResp.Name,
+			"email":      userResp.Email,
+			"created_at": createdAt.Unix(),
+			"exp":        expRefreshToken.Unix(),
+		})
+		tokenString, err := token.SignedString(hmacSampleSecret)
+		refreshTokenString, err := refreshToken.SignedString(hmacSampleSecret)
+		tokenResp := domain.Token{
+			Token:        tokenString,
+			RefreshToken: refreshTokenString,
+		}
+		return CreateResponse{User: userResp, Token: tokenResp}, nil
 	}
 }
 

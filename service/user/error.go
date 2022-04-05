@@ -6,12 +6,13 @@ import (
 
 // Error Declaration
 var (
-	ErrNotFound        = errNotFound{}
-	ErrUnknown         = errUnknown{}
-	ErrNameIsRequired  = errNameIsRequired{}
-	ErrEmailIsRequired = errEmailIsRequired{}
-	ErrEmailIsInvalid  = errEmailIsInvalid{}
-	ErrRecordNotFound  = errRecordNotFound{}
+	ErrNotFound           = errNotFound{}
+	ErrUnknown            = errUnknown{}
+	ErrNameIsRequired     = errNameIsRequired{}
+	ErrEmailIsRequired    = errEmailIsRequired{}
+	ErrEmailIsInvalid     = errEmailIsInvalid{}
+	ErrRecordNotFound     = errRecordNotFound{}
+	ErrPasswordIsRequired = errPasswordIsRequired{}
 )
 
 type errNotFound struct{}
@@ -66,5 +67,15 @@ func (errNameIsRequired) Error() string {
 }
 
 func (errNameIsRequired) StatusCode() int {
+	return http.StatusBadRequest
+}
+
+type errPasswordIsRequired struct{}
+
+func (errPasswordIsRequired) Error() string {
+	return "User password is required"
+}
+
+func (errPasswordIsRequired) StatusCode() int {
 	return http.StatusBadRequest
 }

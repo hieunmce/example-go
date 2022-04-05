@@ -9,11 +9,11 @@ import (
 	"github.com/go-kit/kit/log"
 	httptransport "github.com/go-kit/kit/transport/http"
 
-	"github.com/trantrongkim98/example-go/endpoints"
-	bookDecode "github.com/trantrongkim98/example-go/http/decode/json/book"
-	categoryDecode "github.com/trantrongkim98/example-go/http/decode/json/category"
-	lendbookDecode "github.com/trantrongkim98/example-go/http/decode/json/lendbook"
-	userDecode "github.com/trantrongkim98/example-go/http/decode/json/user"
+	"example.com/m/endpoints"
+	bookDecode "example.com/m/http/decode/json/book"
+	categoryDecode "example.com/m/http/decode/json/category"
+	lendbookDecode "example.com/m/http/decode/json/lendbook"
+	userDecode "example.com/m/http/decode/json/user"
 )
 
 // NewHTTPHandler ...

@@ -1,10 +1,10 @@
 package service
 
 import (
-	"github.com/trantrongkim98/example-go/service/book"
-	"github.com/trantrongkim98/example-go/service/category"
-	"github.com/trantrongkim98/example-go/service/lendbook"
-	"github.com/trantrongkim98/example-go/service/user"
+	"example.com/m/service/book"
+	"example.com/m/service/category"
+	"example.com/m/service/lendbook"
+	"example.com/m/service/user"
 )
 
 // Service define list of all services in projects

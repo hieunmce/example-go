@@ -12,14 +12,14 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 
-	"github.com/trantrongkim98/example-go/config/database/pg"
-	"github.com/trantrongkim98/example-go/endpoints"
-	serviceHttp "github.com/trantrongkim98/example-go/http"
-	"github.com/trantrongkim98/example-go/service"
-	bookSvc "github.com/trantrongkim98/example-go/service/book"
-	categorySvc "github.com/trantrongkim98/example-go/service/category"
-	lendbookSvc "github.com/trantrongkim98/example-go/service/lendbook"
-	userSvc "github.com/trantrongkim98/example-go/service/user"
+	"example.com/m/config/database/pg"
+	"example.com/m/endpoints"
+	serviceHttp "example.com/m/http"
+	"example.com/m/service"
+	bookSvc "example.com/m/service/book"
+	categorySvc "example.com/m/service/category"
+	lendbookSvc "example.com/m/service/lendbook"
+	userSvc "example.com/m/service/user"
 )
 
 func main() {
